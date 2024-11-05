@@ -1,0 +1,37 @@
+.footer {
+    background: linear-gradient(135deg, #D2B8A3, #B3C7AB, #C4B5D4);
+    padding: 20px 0;
+    color: #ffffff;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .h3{
+    font-family: 'Ralewey';
+    display: initial;
+  }
+  
+  .section {
+    flex: 1;
+    min-width: 250px;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .heading {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .section p {
+    font-family: 'Quicksand';
+    font-size: 0.9em;
+    margin: 30px;
+  }
+  
