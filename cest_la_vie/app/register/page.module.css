@@ -56,7 +56,8 @@
     border-bottom: 1px solid #d5abc2;
     outline: none;
     padding: 10px;
-    background-color: transparent;
+    background-color: #f8f8f8;
+    color: black;
 }
 
 .checkboxLabel {

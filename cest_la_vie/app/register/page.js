@@ -54,21 +54,22 @@ export default function Register() {
         <>
             <Header/>
             <div className={styles.formContainer}>
-                <Image src={pasticceria} style={{width:"500px",height:"600px"}}></Image>
+                <Image src={pasticceria} style={{width: "500px", height: "600px"}}></Image>
             </div>
             <div className={styles.form}>
                 <h1 className={styles.formTitle}>Compila il form per registrarti e <br/> ordinare i nostri prodotti
                 </h1>
 
-                <form className={styles.formRecord} onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div className={styles.formGroup}>
                         <label htmlFor="name">Nome</label>
                         <input
                             type="text"
                             id="name"
-                            name="firstName"
+                            name="name"
                             value={formData.name}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
@@ -77,20 +78,23 @@ export default function Register() {
                         <input
                             type="text"
                             id="surname"
-                            name="lastName"
+                            name="surname"
                             value={formData.surname}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
                     <div className={styles.formGroup}>
                         <label htmlFor="email">Email</label>
                         <input
-                            type="email"
+                            type="text"
                             id="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
+                            required
+
                         />
                     </div>
 
@@ -99,9 +103,10 @@ export default function Register() {
                         <input
                             type="tel"
                             id="phone"
-                            name="phone"
+                            name="phoneNumber"
                             value={formData.phoneNumber}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
@@ -113,6 +118,7 @@ export default function Register() {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
@@ -125,6 +131,7 @@ export default function Register() {
                                 checked={formData.privacy}
                                 onChange={handleChange}
                                 className={styles.checkboxInput}
+                                required
                             />
                             Accetto la Privacy Policy
                         </label>
