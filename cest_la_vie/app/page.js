@@ -3,6 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import ParallaxSection from "@/components/parallaxSection";
 import AboutUs from '@/components/aboutUs';
+import HomeProdutcs from '@/components/homeProducts';
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Header />
       <ParallaxSection />
       <AboutUs />
+      <HomeProdutcs />
       <Footer />
     </body>
   );

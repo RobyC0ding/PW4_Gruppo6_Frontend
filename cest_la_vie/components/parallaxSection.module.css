@@ -1,36 +1,33 @@
 .parallaxSection {
     position: relative;
-    height: 500px; /* Regola l'altezza della sezione */
+    height: 650px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
-  }
-  
-  .backgroundImage {
+}
+
+.backgroundImage {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
-  }
-  
-  .parallaxSection::before {
-    content: "";
+    z-index: 0; /* Ensure the background is behind everything else */
+}
+
+.parallaxSection::before {
+    content: ""; /* Pseudo-element for overlay */
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Regola l'opacità */
-    z-index: 1;
-  }
-  
-  .content {
+    z-index: 1; /* Overlay stays above the background */
+}
+
+.content {
     position: relative;
-    z-index: 2; /* Metti il contenuto sopra l'overlay */
-  }
-  
+    z-index: 2; /* Place the content above the overlay */
+}

@@ -1,0 +1,104 @@
+.container {
+    padding: 2rem;
+    padding-top: 0;
+    margin: 0 auto;
+    color: black;
+}
+
+
+
+.sezioni {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    width: 1375px;
+}
+
+/*maccarons*/
+
+.mSection {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    width: 1369.200px;
+    padding: 30px;
+    padding-top: 0px;
+    color: black;
+}
+
+.mdescription {
+    font-size: 1rem;
+    line-height: 1.6;
+    height: 96px;
+    width: 844px;
+}
+
+/*biscotti*/
+
+.bSection {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 1155px;
+    width: 750px;
+    padding-left: 30px;
+    padding-top: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    
+
+}
+
+.bDescription {
+    font-family: 'Quicksand';
+    width: 476px;
+}
+
+.bimageWrapper{
+    margin-top: 1rem;
+    object-fit: cover;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+/*confetture*/
+
+.cSection {
+    display: flex;
+    flex-direction: column-reverse;
+    text-align: center;
+    justify-self: center;
+    position: relative;
+    width: 698px;
+    /* Definisci la larghezza */
+    max-width: 100%;
+    /* Assicura che si adatti su schermi più piccoli */
+    height: 1155px;
+    /* Definisci l'altezza */
+    overflow: hidden;
+    align-items: center;
+}
+
+.cDescription {
+    font-family: 'Quicksand';
+    text-align: center;
+    height: 312px;
+    width: 510px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+.cImageWrapper {
+    font-family: 'Quicksand';
+    margin-top: 1rem;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.h2 {
+    margin-bottom: 8px;
+    font-family: 'Raleway';
+    font-weight: 400;
+    font-size: 30px;
+}
