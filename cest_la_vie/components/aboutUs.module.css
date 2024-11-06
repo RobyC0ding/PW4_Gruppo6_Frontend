@@ -5,28 +5,28 @@
     margin: 100px;
     margin-top: 40px;
     width: 1319px;
-    height: 587;
 }
 
 .textSection {
     flex: 1;
     color: black;
     text-align: center;
-    height: 587px; /* Keep this as is */
-    width: 719px;  /* Change this to 719px */
+    height: 587px;
+
 }
 
 .image {
     height: 587px;
-    width: 529px;
+    width: 529px
 }
 
 .h2 {
-    font-family: 'Raleway'; /* Fixed font family name */
-    font-weight: 400px;
+    font-family: 'Raleway';
+    font-weight: 400;
     font-size: 40px;
     margin-bottom: 1rem;
     display: inline;
+    
 }
 
 .p {

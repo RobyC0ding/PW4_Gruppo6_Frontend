@@ -21,7 +21,7 @@
 
   .centerLinks {
     display: flex;
-    gap: 20px; /* Space between center links */
+    gap: 30px; /* Space between center links */
     margin: 0 auto;
     position: absolute;
     left: 50%;

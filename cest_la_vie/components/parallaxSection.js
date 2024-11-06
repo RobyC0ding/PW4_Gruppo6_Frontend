@@ -23,7 +23,7 @@ export default function ParallaxSection() {
           alt="Background"
           layout="fill"           // Usa layout responsive
           objectFit="cover"             // Ritaglia per coprire tutta l'area
-          objectPosition={`center ${offsetY * -0.09}px`}  // Effetto parallax
+          objectPosition={`center ${offsetY * -1}px`}  // Effetto parallax
           className={styles.backgroundImage}
         />
       </div>

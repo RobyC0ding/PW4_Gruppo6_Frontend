@@ -1,0 +1,90 @@
+.container {
+    padding: 2rem;
+    padding-top: 0;
+    margin: 0 auto;
+    color: black;
+}
+
+
+
+.sezioni{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    width: 1375px;
+}
+
+/*maccarons*/
+
+.mSection{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    width: 1369.200px;
+    height: 172px;
+    padding: 30px;
+    color: black;
+}
+
+.mdescription{
+    font-size: 1rem;
+    line-height: 1.6;
+    height: 96px;
+    width: 844px;
+}
+
+/*biscotti*/
+
+.bSection{
+    height: 476px;
+    width: 288px;
+}
+
+.bDescription{
+    
+}
+
+/*confetture*/
+
+.cSection{
+    display: flex;
+    flex-direction: column-reverse;
+    text-align: center;
+    justify-self: center;
+    position: relative;
+    width: 698px;        /* Definisci la larghezza */
+    max-width: 100%;     /* Assicura che si adatti su schermi più piccoli */
+    height: 1155px;      /* Definisci l'altezza */
+    overflow: hidden;
+    align-items: center;
+}
+
+.cDescription{
+    text-align: center;
+    height: 312px;
+    width: 510px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+.cImageWrapper {
+    margin-top: 1rem;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.h2{
+    margin-top: 30px;
+    margin-bottom: 8px;
+    font-family: 'Raleway';
+    font-weight: 400;
+    font-size: 30px;
+}
+
+.container .p{
+    font-family: 'Quicksand';
+    font-size: 16px;
+    font-weight: 400;
+}
