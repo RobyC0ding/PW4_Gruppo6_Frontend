@@ -1,0 +1,40 @@
+.informationContainer {
+    position: relative;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    padding: 80px;
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Quicksand', sans-serif;
+    overflow: hidden;
+
+}
+
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/macarons.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px) brightness(0.9);
+    z-index: -1;
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+}
+
+.informationTitle {
+    padding-bottom: 20px;
+    font-size: 30px;
+    font-weight: 400;
+    font-family: Raleway, sans-serif;
+    position: relative;
+    z-index: 1;
+}
+
+.informationContainer p {
+    position: relative;
+    z-index: 1;
+}
