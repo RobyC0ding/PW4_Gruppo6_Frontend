@@ -19,11 +19,11 @@ export default function ParallaxSection() {
       {/* Immagine di background */}
       <div className={styles.imageContainer}>
         <Image
-          src="/sfondo1.jpg"  // Percorso relativo all'immagine
+          src="/sfondo2.png"  // Percorso relativo all'immagine
           alt="Background"
           layout="fill"           // Usa layout responsive
           objectFit="cover"             // Ritaglia per coprire tutta l'area
-          objectPosition={`center ${offsetY * -0.10}px`}  // Effetto parallax
+          objectPosition={`center ${offsetY * -0.09}px`}  // Effetto parallax
           className={styles.backgroundImage}
         />
       </div>

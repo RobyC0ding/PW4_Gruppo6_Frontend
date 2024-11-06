@@ -29,9 +29,19 @@
     margin-bottom: 10px;
   }
   
-  .section p {
+  .section p{
     font-family: 'Quicksand';
     font-size: 0.9em;
-    margin: 30px;
+    margin: 20px;
   }
-  
+
+  .scheduleRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -25px;
+  }
+
+  .scheduleRow p:first-child {
+    font-weight: bold;
+    margin-right: 10px; /* Spazio tra giorno e orario */
+  }

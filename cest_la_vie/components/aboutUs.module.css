@@ -1,11 +1,11 @@
 .container {
     display: flex;
-    justify-content: center;
     align-items: start;
     gap: 2rem;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 200px;
+    margin: 100px;
+    margin-top: 40px;
+    width: 1319px;
+    height: 587;
 }
 
 .textSection {
@@ -16,33 +16,28 @@
     width: 719px;  /* Change this to 719px */
 }
 
-.imageSection {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    padding-left: 70px; /* Fixed typo from 70PX to 70px */
-}
-
 .image {
-    border-radius: 8px;
+    height: 587px;
+    width: 529px;
 }
 
 .h2 {
-    font-family: 'Raleway', sans-serif; /* Fixed font family name */
-    font-size: 2rem;
+    font-family: 'Raleway'; /* Fixed font family name */
+    font-weight: 400px;
+    font-size: 40px;
     margin-bottom: 1rem;
+    display: inline;
 }
 
 .p {
     font-family: 'Quicksand', sans-serif; /* Fixed font family name */
-    font-size: 1rem;
+    font-weight: 400px;
+    font-size: 16px;
     line-height: 1.6;
     margin-bottom: 1rem;
     color: #333;
-}
-
-.strong {
-    font-weight: bold;
+    line-height: 24px;
+    margin-top: 8px;
 }
 
 .callButton {
