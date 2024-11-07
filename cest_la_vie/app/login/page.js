@@ -77,8 +77,7 @@ export default function LoginForm() {
                 throw new Error(errorText || 'Errore nella connessione con l’API');
             }
 
-            // Se il login è riuscito, fai il redirect alla home
-            router.push('/');
+            router.push('/home-utente');
 
         } catch (error) {
             console.error('Errore nel login:', error);
