@@ -5,8 +5,6 @@
     color: black;
 }
 
-
-
 .sezioni {
     display: flex;
     gap: 20px;
@@ -14,26 +12,23 @@
     width: 1375px;
 }
 
-/*maccarons*/
-
 .mSection {
     display: flex;
     text-align: center;
     justify-content: center;
-    width: 1369.200px;
+    width: 1369.2px;
     padding: 30px;
-    padding-top: 0px;
+    padding-top: 0;
     color: black;
 }
 
 .mdescription {
+    font-family: 'Quicksand';
     font-size: 1rem;
     line-height: 1.6;
     height: 96px;
     width: 844px;
 }
-
-/*biscotti*/
 
 .bSection {
     display: flex;
@@ -45,8 +40,6 @@
     padding-top: 20px;
     font-size: 16px;
     font-weight: 400;
-    
-
 }
 
 .bDescription {
@@ -54,14 +47,12 @@
     width: 476px;
 }
 
-.bimageWrapper{
+.bimageWrapper {
     margin-top: 1rem;
     object-fit: cover;
     overflow: hidden;
     padding-top: 10px;
 }
-
-/*confetture*/
 
 .cSection {
     display: flex;
@@ -70,11 +61,8 @@
     justify-self: center;
     position: relative;
     width: 698px;
-    /* Definisci la larghezza */
     max-width: 100%;
-    /* Assicura che si adatti su schermi più piccoli */
     height: 1155px;
-    /* Definisci l'altezza */
     overflow: hidden;
     align-items: center;
 }
@@ -88,7 +76,6 @@
     font-weight: 400;
     padding-top: 20px;
 }
-
 
 .cImageWrapper {
     font-family: 'Quicksand';
@@ -104,6 +91,114 @@
     font-size: 30px;
 }
 
-.tl{
+.tl {
     padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .sezioni {
+        flex-direction: column;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .mSection {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .mtext{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mdescription {
+        height: 100px;
+        width: 90%;
+        font-size: 0.9rem;
+    }
+
+    .bSection {
+        width: 100%;
+        padding-left: 20px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bDescription {
+        width: 90%;
+    }
+
+    .bimageWrapper{
+        width: 426px;
+        height: 640px;
+    }
+
+    .cSection {
+        width: 100%;
+        height: auto;
+    }
+
+    .cDescription {
+        width: 90%;
+        font-size: 0.9rem;
+        height: 210px;
+    }
+
+    .ctext{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .h2, .tl {
+        font-size: 24px;
+    }
+
+    .btext{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .mSection, .bSection, .cSection {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .mdescription, .bDescription, .cDescription {
+        width: 100%;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .bimageWrapper{
+        width: 363px;
+        height: 545px;
+    }
+
+    .cDescription{
+        height: 250px;;
+    }
+
+    .h2, .tl {
+        font-size: 20px;
+    }
+
+    .sezioni {
+        gap: 10px;
+        padding: 5px;
+    }
 }

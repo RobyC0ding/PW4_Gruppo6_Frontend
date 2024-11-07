@@ -12,12 +12,11 @@
     color: black;
     text-align: center;
     height: 587px;
-
 }
 
 .image {
     height: 587px;
-    width: 529px
+    width: 529px;
 }
 
 .h2 {
@@ -26,12 +25,11 @@
     font-size: 40px;
     margin-bottom: 1rem;
     display: inline;
-    
 }
 
 .p {
-    font-family: 'Quicksand', sans-serif; /* Fixed font family name */
-    font-weight: 400px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 1rem;
@@ -43,7 +41,7 @@
 .callButton {
     display: inline-block;
     padding: 0.8rem 1.5rem;
-    background-color: rgb(213 171 194);
+    background-color: rgb(213, 171, 194);
     color: white;
     font-size: 1rem;
     border: none;
@@ -54,4 +52,75 @@
 
 .callButton:hover {
     background-color: #b08ac3;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: 20px;
+        margin-left: 0px;
+    }
+
+    .image {
+        width: 100%;
+        height: auto;
+        text-align: center;
+    }
+
+    .textSection{
+        width: 700px;
+    }
+
+    .h2 {
+        font-size: 1.8rem;
+    }
+
+    .p {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .callButton {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 10px;
+        margin-left: 0px;
+        gap: 1rem;
+    }
+
+    .textSection, .image {
+        width: 400px;
+        height: auto;
+        text-align: center;
+    }
+
+    .h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .p {
+        font-size: 12px;
+        line-height: 1.4;
+        margin-top: 6px;
+        margin-bottom: 0.8rem;
+    }
+
+    .image {
+        width: 400px;
+        height: auto;
+    }
+
+    .callButton {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+        border-radius: 20px;
+    }
 }

@@ -5,7 +5,7 @@ export default function homeProducts() {
     return (
         <div className={styles.container}>
             <section className={styles.mSection}>
-                <div className={styles.text}>
+                <div className={styles.mtext}>
                     <h2 className={styles.h2}>Macarons</h2>
                     <p className={styles.mdescription}>
                         Macarons un'esplosione di sapore racchiusa tra due gusci morbidi e un cremoso ripieno. Dolcetti piccoli, rotondi e coloratissimi. Semplicemente deliziosi! Impossibile non innamorarsi a prima vista di questi dolci unici nel loro genere che ti travolgeranno con il loro sapore. Da C'est La Vie abbiamo sempre disponibili una grande varietà di gusti differenti tra cui scegliere. Sono inoltre l'idea perfetta per un regalo elegante e raffinato.
@@ -14,7 +14,7 @@ export default function homeProducts() {
             </section>
             <sezioni className={styles.sezioni}>
                 <section className={styles.cSection}>
-                    <div className={styles.text}>
+                    <div className={styles.ctext}>
                         <h2 className={styles.tl}>Confetture e Marmellate</h2>
                         <p className={styles.cDescription}>
                             Nella nostra bellissima Boutique troverete ad aspettarvi anche le buonissime marmellate e confetture homemade.<br />
@@ -30,7 +30,7 @@ export default function homeProducts() {
                 </section>
 
                 <section className={styles.bSection}>
-                    <div className={styles.text}>
+                    <div className={styles.btext}>
                         <h2 className={styles.h2}>Biscotti</h2>
                         <p className={styles.bDescription}>
                         La pasticceria C'est la Vie propone deliziosi biscotti artigianali. I<br />
