@@ -22,6 +22,7 @@
     bottom: 0;
     filter: blur(0.5) brightness(0.9);
     z-index: -1;
+    background-color: rgba(0, 0, 0, 0.82) !important;
 }
 
 .informationTitle {

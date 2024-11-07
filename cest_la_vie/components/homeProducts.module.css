@@ -193,6 +193,11 @@
         height: 250px;;
     }
 
+    .cImageWrapper{
+        width: 363px;
+        height: 545;
+    }
+
     .h2, .tl {
         font-size: 20px;
     }
