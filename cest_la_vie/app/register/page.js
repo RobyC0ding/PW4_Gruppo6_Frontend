@@ -17,6 +17,16 @@ export default function Register() {
         privacy: false
     });
 
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const validatePhoneNumber = (phoneNumber) => {
+        const phoneRegex = /^\d{10}$/;
+        return phoneRegex.test(phoneNumber);
+    };
+
     const handleChange = (e) => {
         const {name, value, type, checked} = e.target;
         setFormData({
@@ -27,6 +37,16 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!validateEmail(formData.email)) {
+            console.error("Email non valida");
+            return;
+        }
+
+        if (!validatePhoneNumber(formData.phoneNumber)) {
+            console.error("Numero di telefono non valido");
+            return;
+        }
 
         try {
             const response = await fetch("http://localhost:8080/auth/register", {

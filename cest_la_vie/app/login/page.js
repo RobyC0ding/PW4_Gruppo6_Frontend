@@ -1,10 +1,11 @@
 "use client";
 import {useState} from 'react';
+import {useRouter} from 'next/navigation';
 import styles from '@/app/login/page.module.css';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Image from "next/image";
-import cake from "@/public/cake.jpg"
+import cake from "@/public/cake.jpg";
 
 export default function LoginForm() {
     const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function LoginForm() {
 
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const router = useRouter(); // Per il redirect
 
     const handleChange = ({target: {name, value}}) => {
         setFormData(prevData => ({
@@ -35,15 +37,13 @@ export default function LoginForm() {
         return null;
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if ( !formData.phoneNumber || !formData.password) {
+        if (!formData.phoneNumber || !formData.password) {
             setError("Tutti i campi sono obbligatori");
             return;
         }
-
 
         const type = validateEmailOrPhone(formData.phoneNumber);
         if (!type) {
@@ -51,43 +51,34 @@ export default function LoginForm() {
             return;
         }
 
-
-        console.log("Dati inviati al backend:", {
-            password: formData.password,
-            type: formData.phoneNumber
-        });
-
         setLoading(true);
         try {
             const bodyContent = type === 'email'
                 ? JSON.stringify({
                     password: formData.password,
                     email: formData.phoneNumber
-                } )
+                })
                 : JSON.stringify({
                     password: formData.password,
                     phone_number: formData.phoneNumber
                 });
+
             const response = await fetch('http://localhost:8080/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: bodyContent
+                body: bodyContent,
+                credentials: "include"
             });
-
 
             if (!response.ok) {
                 const errorText = await response.text();
                 throw new Error(errorText || 'Errore nella connessione con l’API');
             }
 
-            const contentType = response.headers.get('content-type');
-            let data;
-            console.log('content-type', contentType);
-            data = await response.text();
-            console.log('Login riuscito:', data);
-
+            // Se il login è riuscito, fai il redirect alla home
+            router.push('/');
 
         } catch (error) {
             console.error('Errore nel login:', error);
@@ -130,7 +121,7 @@ export default function LoginForm() {
                 </form>
             </div>
             <div className={styles.imageContainer}>
-                <Image src={cake} style={{width: "500px", height: "600px"}}></Image>
+                <Image src={cake} style={{width: "500px", height: "600px"}} />
             </div>
 
             <Footer/>
