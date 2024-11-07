@@ -8,7 +8,6 @@ import cake from "@/public/cake.jpg"
 
 export default function LoginForm() {
     const [formData, setFormData] = useState({
-        name: '',
         phoneNumber: '',
         password: '',
     });
@@ -25,20 +24,26 @@ export default function LoginForm() {
 
     const validateEmailOrPhone = (input) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^\d{10,15}$/;
+        const phoneRegex = /^\d{10}$/;
 
-        if (emailRegex.test(input)) return 'email';
-        if (phoneRegex.test(input)) return 'phone';
+        if (emailRegex.test(input)) {
+            return 'email';
+        }
+        if (phoneRegex.test(input)) {
+            return 'phoneNumber';
+        }
         return null;
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.nome || !formData.phoneNumber || !formData.password) {
+        if ( !formData.phoneNumber || !formData.password) {
             setError("Tutti i campi sono obbligatori");
             return;
         }
+
 
         const type = validateEmailOrPhone(formData.phoneNumber);
         if (!type) {
@@ -46,26 +51,41 @@ export default function LoginForm() {
             return;
         }
 
+
+        console.log("Dati inviati al backend:", {
+            password: formData.password,
+            type: formData.phoneNumber
+        });
+
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:8080/api/login', {
+            const bodyContent = type === 'email'
+                ? JSON.stringify({
+                    password: formData.password,
+                    email: formData.phoneNumber
+                } )
+                : JSON.stringify({
+                    password: formData.password,
+                    phone_number: formData.phoneNumber
+                });
+            const response = await fetch('http://localhost:8080/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    nome: formData.nome,
-                    contact: formData.phoneNumber,
-                    type: type
-                })
+                body: bodyContent
             });
 
+
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Errore nella connessione con l’API');
+                const errorText = await response.text();
+                throw new Error(errorText || 'Errore nella connessione con l’API');
             }
 
-            const data = await response.json();
+            const contentType = response.headers.get('content-type');
+            let data;
+            console.log('content-type', contentType);
+            data = await response.text();
             console.log('Login riuscito:', data);
 
 
@@ -84,16 +104,6 @@ export default function LoginForm() {
                 <h2 className={styles.formTitle}>Effettua il login<br></br>per ordinare i nostri prodotti</h2>
                 {error && <p style={{color: 'red'}}>{error}</p>}
                 <form onSubmit={handleSubmit} className={styles.form}>
-                    <div className={styles.formGroup}>
-                        <label>Nome:</label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
                     <div className={styles.formGroup}>
                         <label>Email o Numero di Telefono:</label>
                         <input
