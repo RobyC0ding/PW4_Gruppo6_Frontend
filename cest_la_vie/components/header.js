@@ -1,49 +1,42 @@
 'use client'
-import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import styles from './header.module.css';
-import Image from "next/image";
-import logoImg from '@/public/logo.jpeg'
+import Image from 'next/image';
+import logoImg from '@/public/logo.jpeg';
 
 export default function Header() {
-    const [active, setActive] = useState('Home');
+    const pathname = usePathname();
 
     return (
         <header className={styles.header}>
             <nav className={styles.nav}>
                 <Link href="/">
-                    <Image className={styles.logo} src={logoImg} alt="ITS Incom" priority />
+                    <Image className={styles.logo} src={logoImg} alt="C'est la Vie" priority />
                 </Link>
                 <div className={styles.centerLinks}>
                     <Link href="/" passHref>
                         <p
-                            className={`${styles.link} ${active === 'Home' ? styles.active : ''}`}
-                            onClick={() => setActive('Home')}>Home</p>
-                    </Link>
-                    <Link href="/prodotti" passHref>
-                        <p
-                            className={`${styles.link} ${active === 'Prodotti' ? styles.active : ''}`}
-                            onClick={() => setActive('Prodotti')}>Prodotti</p>
+                            className={`${styles.link} ${pathname === '/' ? styles.active : ''}`}
+                        >Home</p>
                     </Link>
                     <Link href="/contatti" passHref>
                         <p
-                            className={`${styles.link} ${active === 'Contatti' ? styles.active : ''}`}
-                            onClick={() => setActive('Contatti')}>Contatti</p>
+                            className={`${styles.link} ${pathname === '/contatti' ? styles.active : ''}`}
+                        >Contatti</p>
                     </Link>
                 </div>
                 <div className={styles.rightLink}>
                     <Link href="/login" passHref>
                         <p
-                            className={`${styles.link} ${active === 'Login' ? styles.active : ''}`}
-                            onClick={() => setActive('Login')}>Login</p>
+                            className={`${styles.link} ${pathname === '/login' ? styles.active : ''}`}
+                        >Login</p>
                     </Link>
-                    <div className={styles.rightLink}>
-                        <Link href="/register" passHref>
-                            <p
-                                className={`${styles.link} ${active === 'Register' ? styles.active : ''}`}
-                                onClick={() => setActive('Register')}>Registrati</p>
-                        </Link>
-                    </div>
+                    <Link href="/register" passHref>
+                        <p
+                            className={`${styles.link} ${pathname === '/register' ? styles.active : ''}`}
+                        >Registrati</p>
+                    </Link>
                 </div>
             </nav>
         </header>

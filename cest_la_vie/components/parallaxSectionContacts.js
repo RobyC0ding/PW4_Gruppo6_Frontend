@@ -15,7 +15,7 @@ export default function ParallaxSectionContacts() {
 
     return (
         <div className={styles.informationContainer}>
-            <div className={styles.backgroundImage}></div>
+            <div className={styles.backgroundImage} whigth={305} higth={121}></div>
             <h3 className={styles.informationTitle}>Per richiedere informazioni</h3>
             <p>
                 <strong>Email:</strong> <a href="mailto:info@pasticceriacestlavie.it">info@pasticceriacestlavie.it</a><br /><br />

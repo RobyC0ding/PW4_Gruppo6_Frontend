@@ -1,19 +1,25 @@
-'use client'
+'use client';
 import styles from '@/components/callToAction.module.css';
-import { useEffect} from 'react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function CallToAction() {
+    const router = useRouter();
 
     useEffect(() => {
         const handleScroll = () => {
-          const scrollPosition = window.scrollY;
-          document.querySelector(`.${styles.background}`).style.backgroundPositionY = `${scrollPosition * 0.01}px`;
+            const scrollPosition = window.scrollY;
+            document.querySelector(`.${styles.background}`).style.backgroundPositionY = `${scrollPosition * 0.01}px`;
         };
     
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-      }, []);
-    
+    }, []);
+
+    const handleButtonClick = () => {
+        router.push('/register'); // Naviga alla pagina "Registrati"
+    };
+
     return (
         <div className={styles.background}>
             <div className={styles.maxContainer}>
@@ -29,7 +35,7 @@ export default function CallToAction() {
                                 <span>Iscriviti per ordinare uno dei nostri deliziosi prodotti o per avere maggiori informazioni!</span>
                             </p>
                         </div>
-                        <button className={styles.button}>Iscriviti!</button>
+                        <button className={styles.button} onClick={handleButtonClick}>Iscriviti!</button>
                     </div>
                 </div>
                 <div className={styles.vuoto}>
@@ -37,6 +43,5 @@ export default function CallToAction() {
                 </div>
             </div>
         </div>
-    )
-
+    );
 }

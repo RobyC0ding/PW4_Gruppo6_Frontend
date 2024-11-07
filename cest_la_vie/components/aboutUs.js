@@ -1,7 +1,14 @@
+'use client'
 import Image from 'next/image';
 import styles from '@/components/aboutUs.module.css';
+import { useRouter } from 'next/navigation';
 
 export default function AboutSection() {
+  const router = useRouter();
+  const handleButtonClick = () => {
+    router.push('/contatti'); // Naviga alla pagina "Registrati"
+};
+
   return (
     <section className={styles.container}>
       <div className={styles.textSection}>
@@ -34,7 +41,7 @@ export default function AboutSection() {
           location elegante e raffinata. Una volta entrati vi perderete in meravigliosi profumi e colori capaci
           di sorprendere ed incuriosire.
         </p>
-        <button className={styles.callButton}>Chiamaci</button>
+        <button className={styles.callButton} onClick={handleButtonClick}>Contattaci</button>
       </div>
       <div className={styles.imageSection}>
         <Image
