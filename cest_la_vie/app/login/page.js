@@ -8,8 +8,9 @@ import cake from "@/public/cake.jpg"
 
 export default function LoginForm() {
     const [formData, setFormData] = useState({
-        nome: '',
-        emailOrPhone: ''
+        name: '',
+        phoneNumber: '',
+        password: '',
     });
 
     const [error, setError] = useState('');
@@ -34,12 +35,12 @@ export default function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.nome || !formData.emailOrPhone) {
+        if (!formData.nome || !formData.phoneNumber || !formData.password) {
             setError("Tutti i campi sono obbligatori");
             return;
         }
 
-        const type = validateEmailOrPhone(formData.emailOrPhone);
+        const type = validateEmailOrPhone(formData.phoneNumber);
         if (!type) {
             setError("Inserisci un'email valida o un numero di telefono");
             return;
@@ -54,7 +55,7 @@ export default function LoginForm() {
                 },
                 body: JSON.stringify({
                     nome: formData.nome,
-                    contact: formData.emailOrPhone,
+                    contact: formData.phoneNumber,
                     type: type
                 })
             });
@@ -87,8 +88,8 @@ export default function LoginForm() {
                         <label>Nome:</label>
                         <input
                             type="text"
-                            name="nome"
-                            value={formData.nome}
+                            name="name"
+                            value={formData.name}
                             onChange={handleChange}
                             required
                         />
@@ -97,8 +98,18 @@ export default function LoginForm() {
                         <label>Email o Numero di Telefono:</label>
                         <input
                             type="text"
-                            name="emailOrPhone"
-                            value={formData.emailOrPhone}
+                            name="phoneNumber"
+                            value={formData.phoneNumber}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
                             onChange={handleChange}
                             required
                         />

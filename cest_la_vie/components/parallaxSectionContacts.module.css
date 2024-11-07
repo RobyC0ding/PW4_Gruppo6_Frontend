@@ -7,8 +7,12 @@
     color: #ffffff;
     font-family: 'Quicksand', sans-serif;
     overflow: hidden;
-
+    background: url('/macarons.jpg') no-repeat fixed center center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
+
 
 .backgroundImage {
     position: absolute;
@@ -16,13 +20,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('/macarons.jpg');
-    background-size: cover;
-    background-position: center;
-    filter: blur(4px) brightness(0.9);
+    filter: blur(0.5) brightness(0.9);
     z-index: -1;
-    will-change: transform;
-    transition: transform 0.1s ease-out;
 }
 
 .informationTitle {
