@@ -4,6 +4,7 @@ import Footer from '@/components/footer';
 import ParallaxSection from "@/components/parallaxSection";
 import AboutUs from '@/components/aboutUs';
 import HomeProdutcs from '@/components/homeProducts';
+import CallToAction from '@/components/callToAction.js';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <ParallaxSection />
       <AboutUs />
       <HomeProdutcs />
+      <CallToAction />
       <Footer />
     </body>
   );

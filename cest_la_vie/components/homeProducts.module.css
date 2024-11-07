@@ -41,7 +41,7 @@
     position: relative;
     height: 1155px;
     width: 750px;
-    padding-left: 30px;
+    padding-left: 40px;
     padding-top: 20px;
     font-size: 16px;
     font-weight: 400;
@@ -86,6 +86,7 @@
     width: 510px;
     font-size: 16px;
     font-weight: 400;
+    padding-top: 20px;
 }
 
 
@@ -96,9 +97,13 @@
     overflow: hidden;
 }
 
-.h2 {
+.h2, .tl {
     margin-bottom: 8px;
     font-family: 'Raleway';
     font-weight: 400;
     font-size: 30px;
+}
+
+.tl{
+    padding-top: 20px;
 }

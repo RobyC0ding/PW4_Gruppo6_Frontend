@@ -1,0 +1,83 @@
+.background{
+    background-image: url('/callToActionImage.jpeg');
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+    width: 100%;
+    min-height: 400px;
+    
+}
+
+.maxContainer{
+    display: flex;
+}
+
+.container{
+    color: black;
+    height: 400px;
+}
+
+.prodotti{
+    background-color: rgba(255, 255, 255, 0.82) !important;
+    width: 712.375px;
+    height: 400px;
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-left: 100px;
+}
+
+.h3{
+    font-family: 'Raleway';
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.ch3{
+    margin-top: 50px;
+    margin-bottom: 8px;
+}
+
+.cp{
+    margin-top: 12px;
+    margin-bottom: 8px;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+.p{
+    font-family: 'Quicksand';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+}
+
+.button{
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(213 171 194);
+    color: white;   
+    font-size: 1.2rem;
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.vuoto{
+    max-width: 50% !important;
+    height: 400px;
+    margin-left: 256.913px;
+    margin-right: 256.913px;
+}
+
+.space{
+    width: 193px;
+    height: auto;
+}

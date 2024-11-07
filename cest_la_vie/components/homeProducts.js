@@ -15,7 +15,7 @@ export default function homeProducts() {
             <sezioni className={styles.sezioni}>
                 <section className={styles.cSection}>
                     <div className={styles.text}>
-                        <h2 className={styles.h2}>Confetture e Marmellate</h2>
+                        <h2 className={styles.tl}>Confetture e Marmellate</h2>
                         <p className={styles.cDescription}>
                             Nella nostra bellissima Boutique troverete ad aspettarvi anche le buonissime marmellate e confetture homemade.<br />
                             Dai gusti audaci, le nostre marmellate sono uniche e irresistibili, ma soprattutto buone!<br />
@@ -26,7 +26,7 @@ export default function homeProducts() {
                     </div>
                     <div className={styles.cImageWrapper}>
                         <Image src="/confetture.jpeg" alt="Confetture e Marmellate" width={1067} height={1600} layout='responsive'/>
-                    </div>
+                    </div>  
                 </section>
 
                 <section className={styles.bSection}>

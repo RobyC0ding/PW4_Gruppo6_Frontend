@@ -11,9 +11,9 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <nav className={styles.nav}>
-            <Link href="/">
-                        <Image className={styles.logo} src={logoImg} alt="ITS Incom" priority />
-                    </Link>
+                <Link href="/">
+                    <Image className={styles.logo} src={logoImg} alt="ITS Incom" priority />
+                </Link>
                 <div className={styles.centerLinks}>
                     <Link href="/" passHref>
                         <p
@@ -37,6 +37,13 @@ export default function Header() {
                             className={`${styles.link} ${active === 'Login' ? styles.active : ''}`}
                             onClick={() => setActive('Login')}>Login</p>
                     </Link>
+                    <div className={styles.rightLink}>
+                        <Link href="/register" passHref>
+                            <p
+                                className={`${styles.link} ${active === 'Register' ? styles.active : ''}`}
+                                onClick={() => setActive('Register')}>Registrati</p>
+                        </Link>
+                    </div>
                 </div>
             </nav>
         </header>
