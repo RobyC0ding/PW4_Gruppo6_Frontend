@@ -1,0 +1,134 @@
+
+.imageContainer {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin-left: -200px;
+}
+
+.productContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 80px;
+    margin-top: 80px;
+}
+
+.productDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.titleProduct {
+    color: black;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    padding-bottom: 20px;
+}
+
+.price, .description, .ingredients, .category, .quantity {
+    color: black;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.quantity input, .addToCartButton {
+    display: inline-block;
+    margin: 10px 0;
+    background-color: rgb(213 171 194);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quantity input {
+    width: 70px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.addToCartButton {
+    width: 160px;
+    height: 60px;
+}
+
+.addToCartButton:hover {
+    background-color: #c7c1dc;
+}
+
+.loading, .error, .orderStatus {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    color: black;
+    margin: 20px;
+}
+
+@media (max-width: 768px) {
+    .productContainer {
+        flex-direction: column;
+        align-items: center;
+        margin: 40px 0;
+    }
+
+    .imageContainer {
+        width: 80%;
+        margin-left: 0;
+    }
+
+    .productDetails {
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .titleProduct, .price, .description, .ingredients, .category, .quantity, .orderStatus {
+        font-size: 1.2rem;
+    }
+
+    .quantity input, .addToCartButton {
+        font-size: 14px;
+        width: 100px;
+        height: 45px;
+    }
+
+    .addToCartButton {
+        width: 140px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .imageContainer {
+        width: 100%;
+    }
+
+    .productContainer {
+        margin: 20px 0;
+    }
+
+    .titleProduct, .price, .description, .ingredients, .category, .quantity, .orderStatus {
+        font-size: 1rem;
+    }
+
+    .quantity input, .addToCartButton {
+        font-size: 12px;
+        width: 80px;
+        height: 40px;
+    }
+
+    .addToCartButton {
+        width: 120px;
+        height: 45px;
+    }
+}
