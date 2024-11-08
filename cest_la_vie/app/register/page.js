@@ -151,10 +151,10 @@ export default function Register() {
                                 name="privacy"
                                 checked={formData.privacy}
                                 onChange={handleChange}
-                                className={styles.checkboxInput}
                                 required
                             />
-                            Accetto la Privacy Policy
+                            <span className={styles.checkmark}></span>
+                            <span className={styles.textButton}>Accetto la Privacy Policy</span>
                         </label>
                     </div>
 

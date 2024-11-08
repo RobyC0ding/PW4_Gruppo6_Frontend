@@ -12,29 +12,24 @@ export default function HeaderLoginUtente() {
     return (
         <header className={styles.header}>
             <nav className={styles.nav}>
-                <Link href="/">
+                <Link href="/home-utente">
                     <Image className={styles.logo} src={logoImg} alt="C'est la Vie" priority />
                 </Link>
                 <div className={styles.centerLinks}>
-                    <Link href="/" passHref>
+                    <Link href="/home-utente" passHref>
                         <p
-                            className={`${styles.link} ${pathname === '/' ? styles.active : ''}`}
+                            className={`${styles.link} ${pathname === '/home-utente' ? styles.active : ''}`}
                         >Home</p>
+                    </Link>
+                    <Link href="/dashboard-utente" passHref>
+                        <p
+                            className={`${styles.link} ${pathname === '/dashboard-utente' ? styles.active : ''}`}
+                        >Dashboard</p>
                     </Link>
                     <Link href="/prodotti" passHref>
                         <p
                             className={`${styles.link} ${pathname === '/prodotti' ? styles.active : ''}`}
                         >Prodotti</p>
-                    </Link>
-                    <Link href="/dashboard" passHref>
-                        <p
-                            className={`${styles.link} ${pathname === '/dashboard-utente' ? styles.active : ''}`}
-                        >Dashboard</p>
-                    </Link>
-                    <Link href="/contatti" passHref>
-                        <p
-                            className={`${styles.link} ${pathname === '/contatti' ? styles.active : ''}`}
-                        >Contatti</p>
                     </Link>
                 </div>
                 <div className={styles.rightLink}>
@@ -43,7 +38,7 @@ export default function HeaderLoginUtente() {
                             className={`${styles.link} ${pathname === '/logout' ? styles.active : ''}`}
                         >Logout</p>
                     </Link>
-                    <Link href='/dashboard' passHref>
+                    <Link href='/dashboard-utente' passHref>
                         <img width="25" height="25" src="https://img.icons8.com/pastel-glyph/100/shopping-cart--v1.png" alt="shopping-cart--v1" />
                     </Link>
                 </div>
