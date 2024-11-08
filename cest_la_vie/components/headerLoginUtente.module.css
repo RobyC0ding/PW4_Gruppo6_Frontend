@@ -18,6 +18,7 @@
     height: auto;
 }
 
+
 .centerLinks {
     display: flex;
     gap: 20px;
@@ -29,7 +30,9 @@
 
 .rightLink {
     display: flex;
+    align-items: center;
     margin-left: auto;
+    gap: 5px;
 }
 
 .link {
@@ -60,7 +63,7 @@
     }
 
     .centerLinks {
-        flex-direction: column;
+
         align-items: center;
         position: static;
         transform: none;
@@ -93,7 +96,7 @@
     }
 
     .centerLinks {
-        flex-direction: column;
+
         gap: 10px;
         margin: 10px 0;
     }

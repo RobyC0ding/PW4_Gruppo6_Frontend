@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-import Header from "@/components/header";
+import HeaderLoginUtente from "@/components/headerLoginUtente.js";
 
 import styles from '@/app/prodotti/page.module.css';
 
@@ -64,7 +64,7 @@ export default function Page() {
 
     return (
         <div>
-            <Header />
+            <HeaderLoginUtente />
             <div className={styles.background}>
                 <div>
                     <h1 className={styles.mainTitle}>I nostri prodotti</h1>
