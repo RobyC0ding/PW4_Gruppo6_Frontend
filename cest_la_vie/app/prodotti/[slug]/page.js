@@ -2,9 +2,10 @@
 
 import {useState, useEffect} from 'react';
 import Image from "next/image";
-import styles from "@/app/[slug]/page.module.css";
+import styles from "@/app/prodotti/[slug]/page.module.css";
 import HeaderLoginUtente from "@/components/headerLoginUtente";
 import Footer from "@/components/footer";
+import Link from "next/link";
 
 async function fetchProduct(slug) {
     const response = await fetch(`http://localhost:8080/product/${slug}`, {
@@ -101,9 +102,17 @@ export default function ProductSlug({params}) {
                         />
                     </div>
 
-                    <button onClick={handleOrder} className={styles.addToCartButton}>
-                        {orderStatus === 'Prodotto ordinato' ? 'Consulta la dashboard' : 'Aggiungi al carrello'}
-                    </button>
+                    {orderStatus === 'Prodotto ordinato' ? (
+                        <Link href="/carrello" passHref>
+                            <button className={styles.addToCartButton}>
+                                Vai al carrello
+                            </button>
+                        </Link>
+                    ) : (
+                        <button onClick={handleOrder} className={styles.addToCartButton}>
+                            Aggiungi al carrello
+                        </button>
+                    )}
 
                     {orderStatus && <p className={styles.orderStatus}>{orderStatus}</p>}
                 </div>
