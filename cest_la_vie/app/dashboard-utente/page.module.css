@@ -1,0 +1,122 @@
+/* Stili desktop - nessun cambiamento */
+
+.welcomeUser {
+    margin-bottom: 80px;
+    padding: 60px;
+    background-color: #C7C1DC;
+}
+
+.welcomeUser h1 {
+    font-size: 36px;
+    color: #ffffff;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+}
+
+.welcomeUser p {
+    font-size: 16px;
+    color: #ffffff;
+    font-family: 'Quicksand', sans-serif;
+    padding-top: 10px;
+}
+
+.dashboardSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 33%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.dashboardSection h2 {
+    font-size: 20px;
+    color: #000000;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    padding-bottom: 10px;
+}
+
+.dashboardSection p {
+    font-size: 16px;
+    color: #000000;
+    font-family: 'Quicksand', sans-serif;
+    padding-bottom: 30px;
+}
+
+.dashboardContainer {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 80px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Media query per tablet (max-width 768px) */
+@media (max-width: 768px) {
+    .welcomeUser {
+        padding: 40px;
+    }
+
+    .welcomeUser h1 {
+        font-size: 28px;
+    }
+
+    .welcomeUser p {
+        font-size: 14px;
+    }
+
+    .dashboardSection {
+        width: 100%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .dashboardSection h2 {
+        font-size: 18px;
+    }
+
+    .dashboardSection p {
+        font-size: 14px;
+    }
+
+    .dashboardContainer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* Media query per smartphone (max-width 480px) */
+@media (max-width: 480px) {
+    .welcomeUser {
+        padding: 20px;
+        margin-bottom: 40px;
+    }
+
+    .welcomeUser h1 {
+        font-size: 24px;
+    }
+
+    .welcomeUser p {
+        font-size: 12px;
+    }
+
+    .dashboardSection {
+        width: 100%;
+        margin: 0 5px;
+    }
+
+    .dashboardSection h2 {
+        font-size: 16px;
+    }
+
+    .dashboardSection p {
+        font-size: 12px;
+        padding-bottom: 20px;
+    }
+
+    .dashboardContainer {
+        margin-bottom: 40px;
+        padding: 0 10px;
+    }
+}
