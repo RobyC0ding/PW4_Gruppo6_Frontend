@@ -1,0 +1,198 @@
+
+.containerPage {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.checkout {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 20px;
+    color: black;
+    width: 50%;
+}
+
+.checkout h1 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    padding-bottom: 40px;
+}
+
+.checkout h3 {
+    font-family: 'Quicksand', sans-serif;
+    padding-bottom: 10px;
+
+}
+
+.checkout p {
+    font-family: 'Quicksand', sans-serif;
+    padding-bottom: 10px;
+
+}
+
+.checkout ul {
+    padding-bottom: 30px;
+}
+
+.buttonOrder {
+    display: inline-block;
+    margin: 10px 0;
+    background-color: rgb(213 171 194);
+    color: white;
+    width: 50%;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttonOrder p {
+    text-align: center;
+    padding-top: 10px;
+
+}
+
+.formContainer {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 20px;
+    color: black;
+}
+
+.formContainer h2 {
+    font-family: 'Raleway', sans-serif;
+    padding-bottom: 30px;
+    font-weight: 400;
+}
+
+.label {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    padding-bottom: 200px;
+}
+
+.oraEdataRitiro {
+    border-radius: 40px;
+    padding: 10px 40px;
+    margin-left: 30px;
+    background-color: #d5abc2;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .checkout, .formContainer {
+        width: 60%;
+    }
+
+    .buttonOrder {
+        width: 60%;
+        margin: 10px auto;
+    }
+
+    .containerPage {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .checkout, .formContainer {
+        width: 80%;
+    }
+
+    .buttonOrder {
+        width: 80%;
+        margin: 10px auto;
+    }
+
+    .containerPage {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .checkout h1 {
+        font-size: 32px;
+    }
+
+    .checkout h3, .checkout p {
+        font-size: 14px;
+    }
+
+    .formContainer h2 {
+        font-size: 28px;
+    }
+
+    .label {
+        padding-bottom: 50px;
+        text-align: center;
+    }
+
+    .oraEdataRitiro {
+        width: 100%;
+        padding: 10px 30px;
+        font-size: 14px;
+        margin: 10px auto;
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout, .formContainer {
+        width: 90%;
+    }
+
+    .buttonOrder {
+        width: 90%;
+        height: 50px;
+        font-size: 18px;
+        margin: 10px auto;
+    }
+
+    .containerPage {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .checkout h1 {
+        font-size: 28px;
+    }
+
+    .checkout h3, .checkout p {
+        font-size: 12px;
+    }
+
+    .formContainer h2 {
+        font-size: 24px;
+    }
+
+    .label {
+        padding-bottom: 30px;
+        text-align: center;
+    }
+
+    .oraEdataRitiro {
+        width: 100%;
+        padding: 10px 30px;
+        font-size: 14px;
+        margin: 10px auto;
+        display: block;
+        text-align: center;
+    }
+}
+
