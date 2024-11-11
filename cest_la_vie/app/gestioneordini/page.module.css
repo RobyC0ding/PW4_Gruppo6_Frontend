@@ -1,0 +1,91 @@
+.background {
+    margin-top: 20px;
+    padding: 20px;
+    padding-top: 0px;
+    margin-bottom: 40px;
+    background-color: #ffffff;
+    font-family: 'Raleway';
+}
+.titolo{
+    display: flex;
+    justify-content: center;
+}
+
+.mainTitle {
+    font-family: 'Raleway';
+    font-size: 40px;
+    font-weight: 400;
+    text-align: center;
+    color: #333;
+}
+
+.content {
+    display: flex;
+    gap: 1rem;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.orderList {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.orderCard {
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.orderTitle {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.orderItem {
+    margin-left: 1rem;
+}
+
+.orderStatus select {
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+.sidebar {
+    flex: 1;
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subTitle {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.searchBar {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: white;
+}
+
+.noOrdersMessage{
+    font-family: 'Raleway';
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 400;
+}

@@ -1,31 +1,30 @@
-.informationContainer {
-    position: relative;
-    margin-top: 80px;
-    margin-bottom: 80px;
-    padding: 80px;
-    text-align: center;
-    color: #000000;
-    font-family: 'Quicksand', sans-serif;
-    overflow: hidden;
-    height: 300px;
+.background{
+    background-image: url('/macarons.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    width: 100%;
+    min-height: 300px;
+}
+
+.maxContainer{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
-.informationContainer::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('/macarons.jpg') no-repeat center center;
-    background-size: cover;
-    filter: blur(3px); /* Imposta l'intensità della sfocatura */
-    z-index: 0;
+.container{
+    color: black;
+    height: 300px;
+    background-color: rgba(255, 255, 255, 0.52) !important;
 }
+
+.description{
+    
+    text-align: center;
+
+}
+
 
 .informationTitle, .info, .description p {
     position: relative;

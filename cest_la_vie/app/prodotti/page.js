@@ -73,7 +73,7 @@ export default function Page() {
             <div className={styles.content}>
                 <div className={styles.catalog}>
                     {Object.keys(productsByCategory).length === 0 ? (
-                        <p className={styles.noProductsMessage}>Nessun prodotto trovato.</p>
+                        <p className={styles.noProductsMessage}>Nessun prodotto trovato. <br /> Torna pià tardi per trovare deliziosità</p>
                     ) : (
                         Object.entries(productsByCategory).map(([category, products], categoryIndex) => (
                             <div key={categoryIndex}>
