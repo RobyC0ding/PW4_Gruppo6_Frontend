@@ -118,28 +118,28 @@ const AdminProducts = () => {
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="Nome prodotto"
+                            placeholder="Nome prodotto..."
                             className={styles.input}
                         />
                         <input
                             type="number"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
-                            placeholder="Prezzo"
+                            placeholder="Prezzo..."
                             className={styles.input}
                         />
                         <input
                             type="number"
                             value={quantity}
                             onChange={(e) => setQuantity(e.target.value)}
-                            placeholder="Quantità"
+                            placeholder="Quantità..."
                             className={styles.input}
                         />
                         <input
                             type="textarea"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Descrizione"
+                            placeholder="Descrizione..."
                             className={styles.input}
                         />
                         <button
