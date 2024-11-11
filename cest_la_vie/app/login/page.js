@@ -1,6 +1,6 @@
 "use client";
-import {useState} from 'react';
-import {useRouter} from 'next/navigation';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '@/app/login/page.module.css';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -17,7 +17,7 @@ export default function LoginForm() {
     const [loading, setLoading] = useState(false);
     const router = useRouter(); // Per il redirect
 
-    const handleChange = ({target: {name, value}}) => {
+    const handleChange = ({ target: { name, value } }) => {
         setFormData(prevData => ({
             ...prevData,
             [name]: value
@@ -89,41 +89,42 @@ export default function LoginForm() {
 
     return (
         <>
-            <Header/>
-            <div className={styles.formContainerLogin}>
-                <h2 className={styles.formTitle}>Effettua il login<br></br>per ordinare i nostri prodotti</h2>
-                {error && <p style={{color: 'red'}}>{error}</p>}
-                <form onSubmit={handleSubmit} className={styles.form}>
-                    <div className={styles.formGroup}>
-                        <label>Email o Numero di Telefono:</label>
-                        <input
-                            type="text"
-                            name="phoneNumber"
-                            value={formData.phoneNumber}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className={styles.formGroup}>
-                        <label>Password:</label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className={styles.submitButtonLogin} disabled={loading}>
-                        {loading ? 'Caricamento...' : 'Login'}
-                    </button>
-                </form>
+            <Header />
+            <div className={styles.container}>
+                <div className={styles.formContainerLogin}>
+                    <h2 className={styles.formTitle}>Effettua il login<br></br>per ordinare i nostri prodotti</h2>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    <form onSubmit={handleSubmit} className={styles.form}>
+                        <div className={styles.formGroup}>
+                            <label>Email o Numero di Telefono:</label>
+                            <input
+                                type="text"
+                                name="phoneNumber"
+                                value={formData.phoneNumber}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className={styles.formGroup}>
+                            <label>Password:</label>
+                            <input
+                                type="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <button type="submit" className={styles.submitButtonLogin} disabled={loading}>
+                            {loading ? 'Caricamento...' : 'Login'}
+                        </button>
+                    </form>
+                </div>
+                <div className={styles.imageContainer}>
+                    <Image src={cake} style={{ width: "500px", height: "600px" }} />
+                </div>
             </div>
-            <div className={styles.imageContainer}>
-                <Image src={cake} style={{width: "500px", height: "600px"}} />
-            </div>
-
-            <Footer/>
+            <Footer />
         </>
     );
 }

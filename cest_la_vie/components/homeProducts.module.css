@@ -48,7 +48,7 @@
 }
 
 .bimageWrapper {
-    margin-top: 1rem;
+    margin-top: 16px;
     object-fit: cover;
     overflow: hidden;
     padding-top: 10px;
@@ -140,6 +140,8 @@
     }
 
     .cSection {
+        display: flex;
+        flex-direction: column;
         width: 100%;
         height: auto;
     }
@@ -205,5 +207,10 @@
     .sezioni {
         gap: 10px;
         padding: 5px;
+    }
+
+    .cSection{
+        display: flex;
+        flex-direction: column ;
     }
 }

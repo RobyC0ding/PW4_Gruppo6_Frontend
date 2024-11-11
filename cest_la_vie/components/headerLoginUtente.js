@@ -38,7 +38,7 @@ export default function HeaderLoginUtente() {
                             className={`${styles.link} ${pathname === '/logout' ? styles.active : ''}`}
                         >Logout</p>
                     </Link>
-                    <Link href='/dashboard-utente' passHref>
+                    <Link href='/carrello' passHref>
                         <img width="25" height="25" src="https://img.icons8.com/pastel-glyph/100/shopping-cart--v1.png" alt="shopping-cart--v1" />
                     </Link>
                 </div>

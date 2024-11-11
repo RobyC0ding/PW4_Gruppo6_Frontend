@@ -1,12 +1,20 @@
+.container{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .formContainerLogin {
     display: flex;
     justify-content: flex-start;
     align-items: start;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-left: 100px;
-    margin-bottom: 40px;
-    width: 60%;
+    margin-bottom: 50px;
+    width: 50%;
 }
 
 .form {
@@ -71,13 +79,10 @@
 }
 
 .imageContainer {
-    width: 40%;
     display: flex;
-    justify-content: flex-end;
-    align-items: end;
-    margin-left: 800px;
-    margin-top: -425px;
-    margin-bottom: 40px;
+    justify-content: start;
+    height: 550px;
+    overflow: hidden;
 }
 
 
@@ -134,6 +139,10 @@
 
     .submitButtonLogin {
         font-size: 14px;
+    }
+
+    .imageContainer{
+        display: none;
     }
 }
 

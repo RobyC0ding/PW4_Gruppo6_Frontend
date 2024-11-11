@@ -15,8 +15,8 @@
 }
 
 .image {
-    height: 587px;
     width: 529px;
+    height: 587px;
 }
 
 .h2 {
@@ -47,7 +47,7 @@
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .callButton:hover {
@@ -114,7 +114,7 @@
     }
 
     .image {
-        width: 400px;
+        width: 370px;
         height: auto;
     }
 
