@@ -1,0 +1,98 @@
+.container {
+    color: black;
+    display: flex;
+
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 80px;
+    margin-right: 300px;
+    gap: 80px; /* Aggiungi spazio tra le colonne */
+}
+
+.inputContainer {
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 50%; /* Imposta la larghezza dei campi input */
+}
+
+.productContainer {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 50%; /* Imposta la larghezza della lista dei prodotti */
+}
+
+.productContainer h2 {
+    text-align: center;
+    font-weight: 400;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.container h1 {
+    display: flex;
+    text-align: center;
+    font-weight: 400;
+    font-family: 'Raleway', sans-serif;
+    width: 100%;
+}
+
+.input {
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #d5abc2;
+    outline: none;
+    padding: 10px;
+    background-color: #f8f8f8;
+    color: black;
+}
+
+.button {
+    border-radius: 40px;
+    padding: 10px 40px;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #d5abc2;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+}
+
+.productList {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Cambiato per centrare la lista */
+}
+
+.productItem {
+    margin-top: 20px;
+}
+
+.buttons {
+    margin-top: 5px;
+}
+
+.deleteButton, .editButton {
+    margin-right: 20px;
+    padding: 10px 40px;
+    width: auto; /* Mantieni la larghezza automatica */
+    margin-top: 10px;
+    background-color: #d5abc2;
+    color: white;
+    font-size: 16px;
+    border-radius: 40px;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+}
+
+.containerForm{
+    display: flex;
+}
