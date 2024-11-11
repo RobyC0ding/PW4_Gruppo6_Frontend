@@ -1,6 +1,8 @@
 "use client"
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import styles from '@/app/magazzino/page.module.css';
+import HeadersAmministratore from '@/components/headerAmministratore';
+import Footer from '@/components/footer';
 
 const AdminProducts = () => {
     const [products, setProducts] = useState([]);
@@ -79,7 +81,7 @@ const AdminProducts = () => {
 
         const updatedProducts = products.map((product) =>
             product.id === editId
-                ? {...product, name, price, quantity, description}
+                ? { ...product, name, price, quantity, description }
                 : product
         );
 
@@ -101,85 +103,90 @@ const AdminProducts = () => {
     };
 
     return (
-
-        <div className={styles.container}>
-            <h1>Aggiungi, modifica, rimuovi prodotto</h1>
-            {error && <div className={styles.error}>{error}</div>}
-
-            <div className={styles.containerForm}>
-
-                <div className={styles.inputContainer}>
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Nome prodotto"
-                        className={styles.input}
-                    />
-                    <input
-                        type="number"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        placeholder="Prezzo"
-                        className={styles.input}
-                    />
-                    <input
-                        type="number"
-                        value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
-                        placeholder="Quantità"
-                        className={styles.input}
-                    />
-                    <input
-                        type="textarea"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Descrizione"
-                        className={styles.input}
-                    />
-                    <button
-                        onClick={editId ? handleEditProduct : handleAddProduct}
-                        className={styles.button}
-                    >
-                        {editId ? 'Modifica prodotto' : 'Aggiungi prodotto'}
-                    </button>
+        <body>
+            <HeadersAmministratore />
+            <div className={styles.container}>
+                <div className={styles.ch1}>
+                    <h1 className={styles.h1}>Aggiungi, modifica, rimuovi prodotto</h1>
                 </div>
+                {error && <div className={styles.error}>{error}</div>}
+
+                <div className={styles.containerForm}>
+
+                    <div className={styles.inputContainer}>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Nome prodotto"
+                            className={styles.input}
+                        />
+                        <input
+                            type="number"
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            placeholder="Prezzo"
+                            className={styles.input}
+                        />
+                        <input
+                            type="number"
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.value)}
+                            placeholder="Quantità"
+                            className={styles.input}
+                        />
+                        <input
+                            type="textarea"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            placeholder="Descrizione"
+                            className={styles.input}
+                        />
+                        <button
+                            onClick={editId ? handleEditProduct : handleAddProduct}
+                            className={styles.button}
+                        >
+                            {editId ? 'Modifica prodotto' : 'Aggiungi prodotto'}
+                        </button>
+                    </div>
 
 
-                <div className={styles.productContainer}>
-                    <h2>Lista dei prodotti</h2>
-                    <ul className={styles.productList}>
-                        {products.map((product) => (
-                            <ul key={product.id} className={styles.productItem}>
-                                <div className={styles.productInfo}>
-                                    {product.name} - {product.price}€ - {product.quantity} disponibile
-                                </div>
-                                <div className={styles.buttons}>
-                                    <button
-                                        onClick={() => handleDeleteProduct(product.id)}
-                                        className={styles.deleteButton}
-                                    >
-                                        Rimuovi
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            setName(product.name);
-                                            setPrice(product.price);
-                                            setQuantity(product.quantity);
-                                            setDescription(product.description);
-                                            setEditId(product.id);
-                                        }}
-                                        className={styles.editButton}
-                                    >
-                                        Modifica
-                                    </button>
-                                </div>
-                            </ul>
-                        ))}
-                    </ul>
+                    <div className={styles.productContainer}>
+                        <h2>Lista dei prodotti</h2>
+                        <ul className={styles.productList}>
+                            {products.map((product) => (
+                                <ul key={product.id} className={styles.productItem}>
+                                    <div className={styles.productInfo}>
+                                        {product.name} - {product.price}€ - {product.quantity} disponibile
+                                    </div>
+                                    <div className={styles.buttons}>
+                                        <button
+                                            onClick={() => handleDeleteProduct(product.id)}
+                                            className={styles.deleteButton}
+                                        >
+                                            Rimuovi
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setName(product.name);
+                                                setPrice(product.price);
+                                                setQuantity(product.quantity);
+                                                setDescription(product.description);
+                                                setEditId(product.id);
+                                            }}
+                                            className={styles.editButton}
+                                        >
+                                            Modifica
+                                        </button>
+                                    </div>
+                                </ul>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+            <Footer />
+        </body>
     );
 };
 

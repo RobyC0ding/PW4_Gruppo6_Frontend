@@ -1,12 +1,21 @@
 .container {
     color: black;
     display: flex;
-
     justify-content: center;
     flex-direction: column;
     margin-top: 80px;
-    margin-right: 300px;
     gap: 80px; /* Aggiungi spazio tra le colonne */
+}
+
+.ch1{
+    display: flex;
+    justify-content: center;
+}
+
+.h1{
+    font-family: 'Raeway';
+    font-size: 40px;
+    font-weight: 400;
 }
 
 .inputContainer {
@@ -15,7 +24,8 @@
     align-content: flex-start;
     flex-direction: column;
     margin-bottom: 20px;
-    width: 50%; /* Imposta la larghezza dei campi input */
+    width: 50%;
+    margin-left: 40px;
 }
 
 .productContainer {
@@ -31,13 +41,7 @@
     font-family: 'Quicksand', sans-serif;
 }
 
-.container h1 {
-    display: flex;
-    text-align: center;
-    font-weight: 400;
-    font-family: 'Raleway', sans-serif;
-    width: 100%;
-}
+
 
 .input {
     margin-top: 10px;
@@ -95,4 +99,5 @@
 
 .containerForm{
     display: flex;
+    margin-bottom: 40px;
 }
