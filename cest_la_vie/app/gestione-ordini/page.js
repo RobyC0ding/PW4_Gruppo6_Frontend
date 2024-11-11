@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import styles from "@/app/gestioneordini/page.module.css";
+import styles from "@/app/gestione-ordini/page.module.css";
 
 import HeaderAmministratore from '@/components/headerAmministratore';
 import Footer from "@/components/footer";

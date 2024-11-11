@@ -12,13 +12,13 @@ export default function HeaderLoginUtente() {
     return (
         <header className={styles.header}>
             <nav className={styles.nav}>
-                <Link href="/gestioneordini">
+                <Link href="/gestione-ordini">
                     <Image className={styles.logo} src={logoImg} alt="C'est la Vie" priority />
                 </Link>
                 <div className={styles.centerLinks}>
-                    <Link href="/gestioneordini" passHref>
+                    <Link href="/gestione-ordini" passHref>
                         <p
-                            className={`${styles.link} ${pathname === '/gestioneordini' ? styles.active : ''}`}
+                            className={`${styles.link} ${pathname === '/gestione-ordini' ? styles.active : ''}`}
                         >Gestione ordini</p>
                     </Link>
                     <Link href="/magazzino" passHref>

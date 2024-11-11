@@ -89,3 +89,60 @@
     font-size: 1.5rem;
     font-weight: 400;
 }
+
+@media (max-width: 768px) {
+    .mainTitle {
+        font-size: 32px;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .orderTitle {
+        font-size: 1.2rem;
+    }
+
+    .orderStatus select {
+        font-size: 0.9rem;
+    }
+
+    .sidebar {
+        margin-top: 20px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .mainTitle {
+        font-size: 28px;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    .orderList,
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .orderTitle {
+        font-size: 1rem;
+    }
+
+    .orderStatus select {
+        font-size: 0.8rem;
+        padding: 4px;
+    }
+
+    .searchBar {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .noOrdersMessage {
+        font-size: 1.2rem;
+    }
+}
