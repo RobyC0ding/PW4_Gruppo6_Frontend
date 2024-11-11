@@ -102,6 +102,24 @@ const AdminProducts = () => {
         setDescription('');
     };
 
+    const handleQuantityChange = (delta) => {
+        setQuantity((prevQuantity) => {
+            // Rimuove "pz" se presente e calcola la nuova quantità
+            const numericQuantity = parseInt(prevQuantity.toString().replace('pz', '')) || 0;
+            const newQuantity = Math.max(numericQuantity + delta, 0);
+            return `${newQuantity} pz.`;
+        });
+    };
+
+    const handleQuantityPrice = (delta) => {
+        setPrice((prevPrice) => {
+            // Rimuovi l'icona dell'euro se già presente, poi aggiorna il prezzo
+            const numericPrice = parseInt(prevPrice.toString().replace('€', '')) || 0;
+            const newPrice = Math.max(numericPrice + delta, 0);
+            return `${newPrice}€`;
+        });
+    };
+
     return (
         <body>
             <HeadersAmministratore />
@@ -121,27 +139,45 @@ const AdminProducts = () => {
                             placeholder="Nome prodotto..."
                             className={styles.input}
                         />
-                        <input
-                            type="number"
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                            placeholder="Prezzo..."
-                            className={styles.input}
-                        />
-                        <input
-                            type="number"
-                            value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
-                            placeholder="Quantità..."
-                            className={styles.input}
-                        />
-                        <input
+                         <input
                             type="textarea"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="Descrizione..."
                             className={styles.input}
                         />
+                        <div className={styles.quantityWrapper}>
+                            <input
+                                type="text"
+                                value={price}
+                                onChange={(e) => {
+                                    const numericValue = parseInt(e.target.value.replace('€', '')) || 0;
+                                    setPrice(`${numericValue}€`);
+                                }}
+                                placeholder="Prezzo..."
+                                className={styles.input}
+                            />
+                            <div className={styles.stylebutton}>
+                                <button onClick={() => handleQuantityPrice(+1)} className={styles.quantityButton}><svg className={styles.plus} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#808"><path d="M20 11h-7V4c0-.55-.45-1-1-1s-1 .45-1 1v7H4c-.55 0-1 .45-1 1s.45 1 1 1h7v7c0 .55.45 1 1 1s1-.45 1-1v-7h7c.55 0 1-.45 1-1s-.45-1-1-1Z" ></path></svg></button>
+                                <button onClick={() => handleQuantityPrice(-1)} className={styles.quantityButton}><svg className={styles.minus} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#808"><path d="M20 11H4c-.55 0-1 .45-1 1s.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1Z"></path></svg></button>
+                            </div>
+                        </div>
+                        <div className={styles.quantityWrapper}>
+                            <input
+                                type="text"
+                                value={quantity}
+                                onChange={(e) => {
+                                    const numericValue = parseInt(e.target.value.replace('pz', '')) || 0;
+                                    setQuantity(`${numericValue}pz`);
+                                }}
+                                placeholder="Quantità..."
+                                className={styles.input}
+                            />
+                            <div className={styles.stylebutton}>
+                                <button onClick={() => handleQuantityChange(+1)} className={styles.quantityButton}><svg className={styles.plus} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#808"><path d="M20 11h-7V4c0-.55-.45-1-1-1s-1 .45-1 1v7H4c-.55 0-1 .45-1 1s.45 1 1 1h7v7c0 .55.45 1 1 1s1-.45 1-1v-7h7c.55 0 1-.45 1-1s-.45-1-1-1Z" ></path></svg></button>
+                                <button onClick={() => handleQuantityChange(-1)} className={styles.quantityButton}><svg className={styles.minus} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#808"><path d="M20 11H4c-.55 0-1 .45-1 1s.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1Z"></path></svg></button>
+                            </div>
+                        </div>
                         <button
                             onClick={editId ? handleEditProduct : handleAddProduct}
                             className={styles.button}
@@ -191,3 +227,6 @@ const AdminProducts = () => {
 };
 
 export default AdminProducts;
+
+
+//onClick={() => handleQuantityChange(-1)

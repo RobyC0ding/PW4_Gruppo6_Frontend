@@ -13,7 +13,7 @@
 }
 
 .h1{
-    font-family: 'Raeway';
+    font-family: 'Raleway';
     font-size: 40px;
     font-weight: 400;
 }
@@ -70,14 +70,18 @@
     font-weight: 400;
     border: none;
     cursor: pointer;
+    transition: 0.3s ease;
 }
 
+.button:hover{
+    background-color: #b08ac3;
+}
+
+
 .productList {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; /* Cambiato per centrare la lista */
+    
+    align-self: center;
+    padding-left: 50px;
 }
 
 .productItem {
@@ -87,6 +91,7 @@
 .buttons {
     margin-top: 5px;
 }
+
 
 .deleteButton, .editButton {
     margin-right: 20px;
@@ -100,9 +105,46 @@
     font-weight: 400;
     border: none;
     cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.deleteButton:hover{
+    background-color: #b08ac3;
+}
+
+.editButton:hover{
+    background-color: #b08ac3;
 }
 
 .containerForm{
     display: flex;
     margin-bottom: 40px;
+}
+
+.plus{
+    width: 20px;
+    height: 20px;
+}
+
+.minus{
+    width: 20px;
+    height: 20px;
+}
+
+.quantityWrapper{
+    display: flex;
+    align-items: center;
+}
+
+.quantityButton{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.stylebutton{
+    display: flex; 
+    gap: 10px;
+    padding-top: 17px;
+    padding-left: 5px;
 }
