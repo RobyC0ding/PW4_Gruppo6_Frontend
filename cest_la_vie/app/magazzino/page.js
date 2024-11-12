@@ -16,6 +16,7 @@ const AdminProducts = () => {
     const [editId, setEditId] = useState(null);
     const [error, setError] = useState('');
     const [image, setImage] = useState(null);
+    const [isImageSelected, setIsImageSelected] = useState(false);
 
     const mockProducts = [
         {
@@ -140,6 +141,9 @@ const AdminProducts = () => {
         const file = e.target.files[0];
         if (file) {
             setImage(URL.createObjectURL(file)); // Anteprima locale dell'immagine
+            setIsImageSelected(true);
+        }else{
+            setIsImageSelected(false)
         }
     };
 
@@ -220,7 +224,6 @@ const AdminProducts = () => {
                                 </option>
                             ))}
                         </select>
-                        <div className={styles.fileInputContainer}>
                             <input
                                 type='file'
                                 accept='image/*'
@@ -232,8 +235,10 @@ const AdminProducts = () => {
                             <label htmlFor="imageUpload" className={styles.customFileButton}>
                                 Carica immagine
                             </label>
-
-                            {image && <img src={image} alt="anteprima" className={styles.anteprima} />}
+                        <div className={`${styles.fileInputContainer} ${isImageSelected ? styles.visible : ''}`} >
+                            <div className={styles.anteprima}>
+                            {image && <img src={image} alt="anteprima" className={styles.background} />}
+                            </div>
                         </div>
 
                         <button
@@ -267,6 +272,7 @@ const AdminProducts = () => {
                                                 setQuantity(product.quantity);
                                                 setDescription(product.description);
                                                 setEditId(product.id);
+                                                
                                             }}
                                             className={styles.editButton}
                                         >
