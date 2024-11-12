@@ -180,6 +180,10 @@
         padding: 10px;
     }
 
+    .bSection, .cSection{
+        overflow: hidden;
+    }
+
     .mdescription, .bDescription, .cDescription {
         width: 100%;
         font-size: 12px;
@@ -189,6 +193,7 @@
     .bimageWrapper{
         width: 363px;
         height: 545px;
+        
     }
 
     .cDescription{

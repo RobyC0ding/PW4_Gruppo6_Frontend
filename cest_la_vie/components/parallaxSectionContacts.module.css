@@ -54,6 +54,27 @@
 }
 
 @media (max-width: 480px) {
+
+    .background{
+        min-height: 270px;
+        background-attachment: scroll;
+    }
+
+    .container{
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .informationTitle{
+        font-size: 30px;
+    }
+
+    .info{
+        font-size: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
     .informationContainer::before {
         background-attachment: scroll;
     }

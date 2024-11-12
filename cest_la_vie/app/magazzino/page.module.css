@@ -4,7 +4,8 @@
     justify-content: center;
     flex-direction: column;
     margin-top: 80px;
-    gap: 80px; /* Aggiungi spazio tra le colonne */
+    gap: 80px;
+    /* Aggiungi spazio tra le colonne */
 }
 
 .ch1 {
@@ -34,7 +35,8 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    width: 50%; /* Imposta la larghezza della lista dei prodotti */
+    width: 50%;
+    /* Imposta la larghezza della lista dei prodotti */
 }
 
 .productContainer h2 {
@@ -57,6 +59,18 @@
     padding: 10px;
     background-color: #f8f8f8;
     color: black;
+}
+
+.select {
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #d5abc2;
+    outline: none;
+    padding: 10px;
+    background-color: #f8f8f8;
+    color: black;
+    margin-right: 69.4%;
 }
 
 .button {
@@ -93,10 +107,12 @@
 }
 
 
-.deleteButton, .editButton {
+.deleteButton,
+.editButton {
     margin-right: 20px;
     padding: 10px 40px;
-    width: auto; /* Mantieni la larghezza automatica */
+    width: auto;
+    /* Mantieni la larghezza automatica */
     margin-top: 10px;
     background-color: #d5abc2;
     color: white;
@@ -136,6 +152,8 @@
     align-items: center;
 }
 
+
+
 .quantityButton {
     background-color: white;
     border: none;
@@ -159,7 +177,8 @@
         text-align: center;
     }
 
-    .inputContainer, .productContainer {
+    .inputContainer,
+    .productContainer {
         width: 100%;
         padding-left: 0;
         margin-right: 20px;
@@ -169,5 +188,29 @@
     .containerForm {
         flex-direction: column;
         margin-bottom: 20px;
+    }
+}
+
+@media(max-width: 768px){
+
+}
+
+@media(max-width: 480px) {
+
+    .containerForm{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .productContainer{
+        margin-right: 40px;
+    }
+
+    .inputContainer{
+        width: 90%;
+    }
+
+    .h1{
+        font-size: 2rem;
     }
 }

@@ -64,6 +64,8 @@
 }
 
 .subTitle {
+    font-family: 'Quicksand';
+    font-weight: 400;
     font-size: 1.2rem;
     color: #555;
     margin-bottom: 10px;
@@ -119,7 +121,14 @@
     }
 
     .content {
+        display: flex;
+        flex-direction: column-reverse;
         padding: 10px;
+        padding-top: 0px;
+    }
+
+    .background{
+        margin-bottom: 0px;
     }
 
     .orderList,

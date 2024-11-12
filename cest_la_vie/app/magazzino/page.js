@@ -10,6 +10,8 @@ const AdminProducts = () => {
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');  //nuovo stato per la categoria
+    const [categories, setCategories] = useState([]); //stato per le opzioni delle categorie
     const [editId, setEditId] = useState(null);
     const [error, setError] = useState('');
 
@@ -19,7 +21,8 @@ const AdminProducts = () => {
             name: "Torta al cioccolato",
             price: 15,
             quantity: 10,
-            description: "Torta al cioccolato fondente, perfetta per ogni occasione."
+            description: "Torta al cioccolato fondente, perfetta per ogni occasione.",
+            category: "Dolci"
         },
         {
             id: 2,
@@ -51,12 +54,19 @@ const AdminProducts = () => {
         },
     ];
 
+    const mockCategories = [
+        { id: 1, name: 'Dolci' },
+        { id: 2, name: 'Pane' },
+        { id: 3, name: 'Bevande' },
+    ]
+
     useEffect(() => {
         setProducts(mockProducts);
+        setCategories(mockCategories);
     }, []);
 
     const handleAddProduct = async () => {
-        if (!name || !price || !quantity || !description) {
+        if (!name || !price || !quantity || !description || !category) {
             setError('Tutti i campi sono obbligatori');
             return;
         }
@@ -67,6 +77,7 @@ const AdminProducts = () => {
             price,
             quantity,
             description,
+            category,
         };
 
         setProducts([...products, newProduct]);
@@ -74,14 +85,14 @@ const AdminProducts = () => {
     };
 
     const handleEditProduct = async () => {
-        if (!name || !price || !quantity || !description) {
+        if (!name || !price || !quantity || !description || !category) {
             setError('Tutti i campi sono obbligatori');
             return;
         }
 
         const updatedProducts = products.map((product) =>
             product.id === editId
-                ? { ...product, name, price, quantity, description }
+                ? { ...product, name, price, quantity, description, category }
                 : product
         );
 
@@ -100,11 +111,11 @@ const AdminProducts = () => {
         setPrice('');
         setQuantity('');
         setDescription('');
+        setCategory('');
     };
 
     const handleQuantityChange = (delta) => {
         setQuantity((prevQuantity) => {
-            // Rimuove "pz" se presente e calcola la nuova quantità
             const numericQuantity = parseInt(prevQuantity.toString().replace('pz', '')) || 0;
             const newQuantity = Math.max(numericQuantity + delta, 0);
             return `${newQuantity} pz.`;
@@ -113,7 +124,6 @@ const AdminProducts = () => {
 
     const handleQuantityPrice = (delta) => {
         setPrice((prevPrice) => {
-            // Rimuovi l'icona dell'euro se già presente, poi aggiorna il prezzo
             const numericPrice = parseInt(prevPrice.toString().replace('€', '')) || 0;
             const newPrice = Math.max(numericPrice + delta, 0);
             return `${newPrice}€`;
@@ -130,7 +140,6 @@ const AdminProducts = () => {
                 {error && <div className={styles.error}>{error}</div>}
 
                 <div className={styles.containerForm}>
-
                     <div className={styles.inputContainer}>
                         <input
                             type="text"
@@ -139,7 +148,7 @@ const AdminProducts = () => {
                             placeholder="Nome prodotto..."
                             className={styles.input}
                         />
-                         <input
+                        <input
                             type="textarea"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -178,6 +187,20 @@ const AdminProducts = () => {
                                 <button onClick={() => handleQuantityChange(-1)} className={styles.quantityButton}><svg className={styles.minus} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#808"><path d="M20 11H4c-.55 0-1 .45-1 1s.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1Z"></path></svg></button>
                             </div>
                         </div>
+
+                        <select
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            className={styles.select}
+                        >
+                            <option value="">Seleziona categoria...</option>
+                            {categories.map((cat) => (
+                                <option key={cat.id} value={cat.name}>
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
+
                         <button
                             onClick={editId ? handleEditProduct : handleAddProduct}
                             className={styles.button}
