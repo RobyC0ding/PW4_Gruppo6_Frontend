@@ -27,10 +27,10 @@ const Utente = () => {
         <body>
             <HeaderAmministratore />
             <div className={styles.container}>
-                <h1 className={styles.title}>Lista utenti quelli registrati da telefono</h1>
+                <h1 className={styles.title}>Lista utenti registrati da telefono</h1>
                 <ul>
                     {utenti.map((user) => (
-                        <ul key={user.id}>
+                        <ul key={user.id} className={styles.list}>
                             <h3>{user.name}{user.surname}</h3>
                             <p>Numero di telefomo: {user.phoneNumber}</p>
                             <p>Stato di verifica: {user.state}</p>
