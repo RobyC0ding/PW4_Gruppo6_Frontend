@@ -12,8 +12,10 @@ const AdminProducts = () => {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');  //nuovo stato per la categoria
     const [categories, setCategories] = useState([]); //stato per le opzioni delle categorie
+    const [ingredients, setIngredients] = useState('');
     const [editId, setEditId] = useState(null);
     const [error, setError] = useState('');
+    const [image, setImage] = useState(null);
 
     const mockProducts = [
         {
@@ -66,7 +68,7 @@ const AdminProducts = () => {
     }, []);
 
     const handleAddProduct = async () => {
-        if (!name || !price || !quantity || !description || !category) {
+        if (!name || !price || !quantity || !description || !category || !ingredients) {
             setError('Tutti i campi sono obbligatori');
             return;
         }
@@ -78,6 +80,8 @@ const AdminProducts = () => {
             quantity,
             description,
             category,
+            ingredients,
+            image,
         };
 
         setProducts([...products, newProduct]);
@@ -85,14 +89,14 @@ const AdminProducts = () => {
     };
 
     const handleEditProduct = async () => {
-        if (!name || !price || !quantity || !description || !category) {
+        if (!name || !price || !quantity || !description || !category || !ingredients) {
             setError('Tutti i campi sono obbligatori');
             return;
         }
 
         const updatedProducts = products.map((product) =>
             product.id === editId
-                ? { ...product, name, price, quantity, description, category }
+                ? { ...product, name, price, quantity, description, category, ingredients, image }
                 : product
         );
 
@@ -112,6 +116,8 @@ const AdminProducts = () => {
         setQuantity('');
         setDescription('');
         setCategory('');
+        setIngredients('');
+        setImage(null)
     };
 
     const handleQuantityChange = (delta) => {
@@ -128,6 +134,13 @@ const AdminProducts = () => {
             const newPrice = Math.max(numericPrice + delta, 0);
             return `${newPrice}€`;
         });
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(URL.createObjectURL(file)); // Anteprima locale dell'immagine
+        }
     };
 
     return (
@@ -155,9 +168,16 @@ const AdminProducts = () => {
                             placeholder="Descrizione..."
                             className={styles.input}
                         />
+                        <input
+                            type='textarea'
+                            value={ingredients}
+                            onChange={(e) => setIngredients(e.target.value)}
+                            placeholder='Ingredienti...'
+                            className={styles.input}
+                        />
                         <div className={styles.quantityWrapper}>
                             <input
-                                type="text"
+                                type="textarea"
                                 value={price}
                                 onChange={(e) => {
                                     const numericValue = parseInt(e.target.value.replace('€', '')) || 0;
@@ -200,6 +220,21 @@ const AdminProducts = () => {
                                 </option>
                             ))}
                         </select>
+                        <div className={styles.fileInputContainer}>
+                            <input
+                                type='file'
+                                accept='image/*'
+                                id='imageUpload'
+                                onChange={handleImageChange}
+                                className={styles.inputFile}
+                            />
+
+                            <label htmlFor="imageUpload" className={styles.customFileButton}>
+                                Carica immagine
+                            </label>
+
+                            {image && <img src={image} alt="anteprima" className={styles.anteprima} />}
+                        </div>
 
                         <button
                             onClick={editId ? handleEditProduct : handleAddProduct}
