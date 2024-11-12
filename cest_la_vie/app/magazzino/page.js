@@ -233,7 +233,7 @@ const AdminProducts = () => {
                             />
 
                             <label htmlFor="imageUpload" className={styles.customFileButton}>
-                                Carica immagine
+                                <p className={styles.pButton}>Carica immagine</p>
                             </label>
                         <div className={`${styles.fileInputContainer} ${isImageSelected ? styles.visible : ''}`} >
                             <div className={styles.anteprima}>

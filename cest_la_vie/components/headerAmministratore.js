@@ -16,6 +16,11 @@ export default function HeaderLoginUtente() {
                     <Image className={styles.logo} src={logoImg} alt="C'est la Vie" priority />
                 </Link>
                 <div className={styles.centerLinks}>
+                    <Link href="/gestione-utenti" passHref>
+                        <p
+                            className={`${styles.link} ${pathname === '/gestione-utenti' ? styles.active : ''}`}
+                        >Gestione utenti</p>
+                    </Link>
                     <Link href="/gestione-ordini" passHref>
                         <p
                             className={`${styles.link} ${pathname === '/gestione-ordini' ? styles.active : ''}`}
