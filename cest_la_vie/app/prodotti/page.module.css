@@ -7,7 +7,7 @@
     min-height: 650px;
 }
 
-.mainTitle{
+.mainTitle {
     font-family: 'Raleway';
     font-weight: 400;
     font-size: 40px;
@@ -23,22 +23,21 @@
 
 }
 
-.catalog, .p{
-    font-family: 'Quicksand';
-}
-.container {
-    display: flex;
-    flex-direction: column;
-}
-
 .content {
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     padding: 20px;
 }
 
-.catalog {
-    width: 80%;
+.categoryTitle {
+    text-align: center;
+    font-family: 'Raleway';
+    font-size: 35px;
+    font-weight: 400;
+    color: #000000;
+    margin: 2rem 0;
 }
 
 .productGrid {
@@ -47,43 +46,48 @@
     gap: 20px;
 }
 
-.productCard {
+.productCard{
     padding: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background-color: #ffffff;
+    border: 1px solid rgba(243, 188, 159, 1) !important;
     border-radius: 8px;
+    height: auto;
+    
 }
 
-.image {
-    margin-bottom: 1rem;
+.productInfo{
+    color: black;
+    font-family: 'Quicksand';
+    font-size: 16px;
+    font-weight: 400px;
 }
 
-.productInfo p {
-    font-family: 'Montserrat', sans-serif;
-    margin: 4px;
+.info{
+    margin: 10px;
 }
 
-.categoryTitle {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #00327a;
-    font-family: 'Montserrat', sans-serif;
-    margin: 2rem 0;
-}
-
-.quantityControl {
+.quantityControl{
+    margin-top: 20px;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
     gap: 10px;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
 .quantityControl button {
     padding: 0.5rem 1rem;
-    background-color: #001745;
+    background-color: rgb(213, 171, 194);
     color: #fff;
     font-size: 1rem;
     border: none;
@@ -125,7 +129,7 @@
     font-family: 'Quicksand';
 }
 
-.searchForm{
+.searchForm {
     margin-top: 8px;
     width: 210px;
 }
@@ -152,7 +156,7 @@
     background-color: #00327a;
 }
 
-.noProductsMessage{
+.noProductsMessage {
     color: black;
     font-family: 'Raleway';
     font-size: 25px;
@@ -162,12 +166,15 @@
 /* Stile per schermi con larghezza massima di 768px (es. tablet) */
 @media (max-width: 768px) {
     .background {
-        min-height: 500px; /* Riduci l'altezza minima per dispositivi più piccoli */
-        background-position: center; /* Centra meglio l'immagine */
+        min-height: 500px;
+        /* Riduci l'altezza minima per dispositivi più piccoli */
+        background-position: center;
+        /* Centra meglio l'immagine */
     }
-    
+
     .mainTitle {
-        font-size: 32px; /* Riduci la dimensione del testo */
+        font-size: 32px;
+        /* Riduci la dimensione del testo */
         padding-top: 200px;
         padding-bottom: 270px;
         padding-left: 40px;
@@ -175,17 +182,20 @@
     }
 
     .content {
-        flex-direction: column; /* Cambia a colonna per layout verticale */
+        flex-direction: column;
+        /* Cambia a colonna per layout verticale */
         align-items: center;
     }
 
     .productGrid {
-        grid-template-columns: repeat(2, minmax(150px, 1fr)); /* Due colonne per migliorare il layout */
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+        /* Due colonne per migliorare il layout */
         gap: 15px;
     }
 
     .categoryTitle {
-        font-size: 1.5rem; /* Riduci la dimensione del titolo della categoria */
+        font-size: 1.5rem;
+        /* Riduci la dimensione del titolo della categoria */
         margin: 1.5rem 0;
     }
 
@@ -204,7 +214,7 @@
         margin: 40px auto;
     }
 
-    .sidebar{
+    .sidebar {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -213,7 +223,7 @@
 
 @media (max-width: 480px) {
 
-    .content{
+    .content {
         display: flex;
         flex-direction: column-reverse;
     }
@@ -233,7 +243,8 @@
     }
 
     .productGrid {
-        grid-template-columns: 1fr; /* Una sola colonna per ottimizzare lo spazio */
+        grid-template-columns: 1fr;
+        /* Una sola colonna per ottimizzare lo spazio */
         gap: 10px;
     }
 
