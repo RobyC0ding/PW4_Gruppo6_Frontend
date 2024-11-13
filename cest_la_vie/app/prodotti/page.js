@@ -46,9 +46,9 @@ export default function Page() {
     const filteredCategories = categories.map((category) => ({
         ...category,
         products: category.products.filter(({ product }) =>
-            product.name.toLowerCase().includes(searchQuery.toLowerCase())
+            product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
         ),
-    })).filter(category => category.products.length > 0); // Mantiene solo le categorie con prodotti corrispondenti
+    })).filter(category => category.products.length > 0);
 
     return (
         <div>
@@ -69,22 +69,21 @@ export default function Page() {
                                 <h2 className={styles.categoryTitle}>{category.name}</h2>
                                 <div className={styles.productGrid}>
                                     {category.products.map(({ product, ingredients }) => (
-                                        <Link href={'/prodotti/' + product.id}>
-                                            <div key={product.id} className={styles.productCard}>
+                                        <Link key={product.id} href={'/prodotti/' + product.id}>
+                                            <div className={styles.productCard}>
                                                 {/* <Image
                                                 src={product.image || "/path/to/fallbackImage.jpg"} // Percorso dell'immagine di fallback
-                                                alt={product.name}
+                                                alt={product.product_name}
                                                 width={200}
                                                 height={300}
                                                 className={styles.image}
                                                 style={{ maxWidth: '100%', height: 'auto' }}
                                                 /> */}
                                                 <div className={styles.productInfo}>
-                                                    <p className={styles.info}><strong>{product.name}</strong></p>
+                                                    <p className={styles.info}><strong>{product.product_name}</strong></p>
                                                     <p className={styles.info}><strong>Descrizione:</strong> {product.description}</p>
                                                     <p className={styles.info}><strong>Prezzo:</strong> €{product.price}</p>
                                                     <p className={styles.info}><strong>Ingredienti:</strong> {ingredients.map(ingredient => ingredient.name).join(", ")}</p>
-
                                                 </div>
                                             </div>
                                         </Link>
