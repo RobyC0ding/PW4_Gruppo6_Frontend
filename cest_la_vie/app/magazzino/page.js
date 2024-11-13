@@ -6,66 +6,46 @@ import Footer from '@/components/footer';
 
 const AdminProducts = () => {
     const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');  //nuovo stato per la categoria
-    const [categories, setCategories] = useState([]); //stato per le opzioni delle categorie
+    const [category, setCategory] = useState('');
     const [ingredients, setIngredients] = useState('');
     const [editId, setEditId] = useState(null);
     const [error, setError] = useState('');
     const [image, setImage] = useState(null);
     const [isImageSelected, setIsImageSelected] = useState(false);
 
-    const mockProducts = [
-        {
-            id: 1,
-            name: "Torta al cioccolato",
-            price: 15,
-            quantity: 10,
-            description: "Torta al cioccolato fondente, perfetta per ogni occasione.",
-            category: "Dolci"
-        },
-        {
-            id: 2,
-            name: "Croissant alla marmellata",
-            price: 3,
-            quantity: 20,
-            description: "Deliziosi croissant con marmellata di albicocche."
-        },
-        {
-            id: 3,
-            name: "Biscotti al burro",
-            price: 5,
-            quantity: 30,
-            description: "Biscotti fragranti e croccanti, perfetti per la colazione."
-        },
-        {
-            id: 4,
-            name: "Muffin ai mirtilli",
-            price: 4,
-            quantity: 15,
-            description: "Muffin soffici con mirtilli freschi."
-        },
-        {
-            id: 5,
-            name: "Pane integrale",
-            price: 2,
-            quantity: 50,
-            description: "Pane fatto in casa con farina integrale, ideale per ogni pasto."
-        },
-    ];
-
-    const mockCategories = [
-        { id: 1, name: 'Dolci' },
-        { id: 2, name: 'Pane' },
-        { id: 3, name: 'Bevande' },
-    ]
-
+    // Fetch products and categories on component mount
     useEffect(() => {
-        setProducts(mockProducts);
-        setCategories(mockCategories);
+        const fetchCatalog = async () => {
+            try {
+                const [productRes, categoryRes] = await Promise.all([
+                    fetch('http://localhost:8080/product/all', {
+                        method: 'GET',
+                        credentials: 'include'
+                    }),
+                ]);
+
+                if (productRes.ok && categoryRes.ok) {
+                    const productsData = await productRes.json();
+                    const categoriesData = await categoryRes.json();
+                    console.log('Prodotti:', productsData);  // Aggiungi questo log
+                    console.log('Categorie:', categoriesData); // Aggiungi anche per le categorie
+                    setProducts(productsData);
+                    setCategories(categoriesData);
+                } else {
+                    throw new Error('Errore nel recupero di prodotti o categorie');
+                }
+            } catch (error) {
+                console.error('Errore durante il recupero di prodotti e categorie:', error);
+                setError('Errore durante il recupero dei dati');
+            }
+        };
+
+        fetchCatalog();
     }, []);
 
     const handleAddProduct = async () => {
@@ -74,19 +54,23 @@ const AdminProducts = () => {
             return;
         }
 
-        const newProduct = {
-            id: products.length + 1,
-            name,
-            price,
-            quantity,
-            description,
-            category,
-            ingredients,
-            image,
-        };
-
-        setProducts([...products, newProduct]);
-        resetForm();
+        const newProduct = { name, price, quantity, description, category, ingredients, image };
+        try {
+            const response = await fetch('http://localhost:8080/product', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newProduct),
+            });
+            if (response.ok) {
+                const addedProduct = await response.json();
+                setProducts([...products, addedProduct]);
+                resetForm();
+            } else {
+                throw new Error('Errore durante l\'aggiunta del prodotto');
+            }
+        } catch (err) {
+            setError(err.message);
+        }
     };
 
     const handleEditProduct = async () => {
@@ -95,20 +79,39 @@ const AdminProducts = () => {
             return;
         }
 
-        const updatedProducts = products.map((product) =>
-            product.id === editId
-                ? { ...product, name, price, quantity, description, category, ingredients, image }
-                : product
-        );
-
-        setProducts(updatedProducts);
-        setEditId(null);
-        resetForm();
+        const updatedProduct = { name, price, quantity, description, category, ingredients, image };
+        try {
+            const response = await fetch(`http://localhost:8080/product/${editId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedProduct),
+            });
+            if (response.ok) {
+                const updatedData = await response.json();
+                setProducts(products.map((product) =>
+                    product.id === editId ? updatedData : product
+                ));
+                resetForm();
+                setEditId(null);
+            } else {
+                throw new Error('Errore durante la modifica del prodotto');
+            }
+        } catch (err) {
+            setError(err.message);
+        }
     };
 
     const handleDeleteProduct = async (id) => {
-        const updatedProducts = products.filter((product) => product.id !== id);
-        setProducts(updatedProducts);
+        try {
+            const response = await fetch(`http://localhost:8080/product/${id}`, { method: 'DELETE' });
+            if (response.ok) {
+                setProducts(products.filter((product) => product.id !== id));
+            } else {
+                throw new Error('Errore durante l\'eliminazione del prodotto');
+            }
+        } catch (err) {
+            setError(err.message);
+        }
     };
 
     const resetForm = () => {
@@ -118,32 +121,32 @@ const AdminProducts = () => {
         setDescription('');
         setCategory('');
         setIngredients('');
-        setImage(null)
+        setImage(null);
+        setIsImageSelected(false);
+        setError('');
     };
 
     const handleQuantityChange = (delta) => {
         setQuantity((prevQuantity) => {
             const numericQuantity = parseInt(prevQuantity.toString().replace('pz', '')) || 0;
-            const newQuantity = Math.max(numericQuantity + delta, 0);
-            return `${newQuantity} pz.`;
+            return `${Math.max(numericQuantity + delta, 0)} pz.`;
         });
     };
 
     const handleQuantityPrice = (delta) => {
         setPrice((prevPrice) => {
             const numericPrice = parseInt(prevPrice.toString().replace('€', '')) || 0;
-            const newPrice = Math.max(numericPrice + delta, 0);
-            return `${newPrice}€`;
+            return `${Math.max(numericPrice + delta, 0)}€`;
         });
     };
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setImage(URL.createObjectURL(file)); // Anteprima locale dell'immagine
+            setImage(URL.createObjectURL(file));
             setIsImageSelected(true);
-        }else{
-            setIsImageSelected(false)
+        } else {
+            setIsImageSelected(false);
         }
     };
 
@@ -224,20 +227,20 @@ const AdminProducts = () => {
                                 </option>
                             ))}
                         </select>
-                            <input
-                                type='file'
-                                accept='image/*'
-                                id='imageUpload'
-                                onChange={handleImageChange}
-                                className={styles.inputFile}
-                            />
+                        <input
+                            type='file'
+                            accept='image/*'
+                            id='imageUpload'
+                            onChange={handleImageChange}
+                            className={styles.inputFile}
+                        />
 
-                            <label htmlFor="imageUpload" className={styles.customFileButton}>
-                                <p className={styles.pButton}>Carica immagine</p>
-                            </label>
+                        <label htmlFor="imageUpload" className={styles.customFileButton}>
+                            <p className={styles.pButton}>Carica immagine</p>
+                        </label>
                         <div className={`${styles.fileInputContainer} ${isImageSelected ? styles.visible : ''}`} >
                             <div className={styles.anteprima}>
-                            {image && <img src={image} alt="anteprima" className={styles.background} />}
+                                {image && <img src={image} alt="anteprima" className={styles.background} />}
                             </div>
                         </div>
 
@@ -254,9 +257,9 @@ const AdminProducts = () => {
                         <h2>Lista dei prodotti</h2>
                         <ul className={styles.productList}>
                             {products.map((product) => (
-                                <ul key={product.id} className={styles.productItem}>
+                                <li key={product.id} className={styles.productItem}>
                                     <div className={styles.productInfo}>
-                                        {product.name} - {product.price}€ - {product.quantity} disponibile
+                                        {product.name} - {product.price}€ - {product.quantity} pz disponibili
                                     </div>
                                     <div className={styles.buttons}>
                                         <button
@@ -271,15 +274,17 @@ const AdminProducts = () => {
                                                 setPrice(product.price);
                                                 setQuantity(product.quantity);
                                                 setDescription(product.description);
+                                                setCategory(product.category);
+                                                setIngredients(product.ingredients);
                                                 setEditId(product.id);
-                                                
+                                                setImage(product.image || null);
                                             }}
                                             className={styles.editButton}
                                         >
                                             Modifica
                                         </button>
                                     </div>
-                                </ul>
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -291,6 +296,3 @@ const AdminProducts = () => {
 };
 
 export default AdminProducts;
-
-
-//onClick={() => handleQuantityChange(-1)

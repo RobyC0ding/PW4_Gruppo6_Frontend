@@ -54,6 +54,44 @@
     padding-bottom: 20px;
 }
 
+.quantityWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #d5abc2;
+    outline: none;
+    padding: 10px;
+    background-color: #f8f8f8;
+    color: black;
+}
+
+.stylebutton {
+    display: flex;
+    gap: 10px;
+    padding-top: 17px;
+    padding-left: 5px;
+}
+
+.quantityButton {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.plus {
+    width: 20px;
+    height: 20px;
+}
+
+.minus {
+    width: 20px;
+    height: 20px;
+}
 
 .ingredients {
     color: black;

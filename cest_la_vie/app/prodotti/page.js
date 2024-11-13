@@ -46,7 +46,7 @@ export default function Page() {
     const filteredCategories = categories.map((category) => ({
         ...category,
         products: category.products.filter(({ product }) =>
-            product.name.toLowerCase().includes(searchQuery.toLowerCase())
+            product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
         ),
     })).filter(category => category.products.length > 0); // Mantiene solo le categorie con prodotti corrispondenti
 
@@ -58,7 +58,6 @@ export default function Page() {
                     <h1 className={styles.mainTitle}>I nostri prodotti</h1>
                 </div>
             </div>
-            <p className={styles.pAcquisto}>*per acquistare selezionare un prodotto</p>
             <div className={styles.content}>
                 <div className={styles.catalog}>
                     {filteredCategories.length === 0 ? (
@@ -69,7 +68,7 @@ export default function Page() {
                                 <h2 className={styles.categoryTitle}>{category.name}</h2>
                                 <div className={styles.productGrid}>
                                     {category.products.map(({ product, ingredients }) => (
-                                        <Link href={'/prodotti/' + product.id}>
+                                        <Link href={'/prodotti/' + product.id} key={product.id}>
                                             <div key={product.id} className={styles.productCard}>
                                                 {/* <Image
                                                 src={product.image || "/path/to/fallbackImage.jpg"} // Percorso dell'immagine di fallback
