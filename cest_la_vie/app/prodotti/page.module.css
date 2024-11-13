@@ -63,10 +63,10 @@
     align-items: center;
     gap: 15px;
     background-color: #ffffff;
-    border: 1px solid rgba(243, 188, 159, 1) !important;
+    border: 1px solid rgba(243, 188, 159, 1);
     border-radius: 8px;
     height: auto;
-    transition: 0.3s ease;
+    transition: 0.5s ease;
 
 }
 
@@ -126,6 +126,10 @@
     font-family: 'Raleway';
     font-size: 25px;
     font-weight: 400;
+}
+
+.image{
+    border-radius: 8px;
 }
 
 /* Stile per schermi con larghezza massima di 768px (es. tablet) */

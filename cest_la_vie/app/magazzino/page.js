@@ -17,36 +17,40 @@ const AdminProducts = () => {
     const [error, setError] = useState('');
     const [image, setImage] = useState(null);
     const [isImageSelected, setIsImageSelected] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
 
     // Fetch products and categories on component mount
     useEffect(() => {
         const fetchCatalog = async () => {
             try {
-                const [productRes, categoryRes] = await Promise.all([
-                    fetch('http://localhost:8080/product/all', {
-                        method: 'GET',
-                        credentials: 'include'
-                    }),
-                ]);
+                const response = await fetch(`http://localhost:8080/product/all`, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
 
-                if (productRes.ok && categoryRes.ok) {
-                    const productsData = await productRes.json();
-                    const categoriesData = await categoryRes.json();
-                    console.log('Prodotti:', productsData);  // Aggiungi questo log
-                    console.log('Categorie:', categoriesData); // Aggiungi anche per le categorie
-                    setProducts(productsData);
-                    setCategories(categoriesData);
+                if (response.ok) {
+                    const data = await response.json();
+                    setCategories(data);
                 } else {
-                    throw new Error('Errore nel recupero di prodotti o categorie');
+                    throw new Error('Errore nella richiesta dei prodotti');
                 }
             } catch (error) {
-                console.error('Errore durante il recupero di prodotti e categorie:', error);
-                setError('Errore durante il recupero dei dati');
+                console.error('Errore durante il recupero dei prodotti:', error);
             }
         };
 
         fetchCatalog();
     }, []);
+
+    const filteredCategories = categories.map((category) => ({
+        ...category,
+        products: category.products.filter(({ product }) =>
+            product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
+        ),
+    })).filter(category => category.products.length > 0);
 
     const handleAddProduct = async () => {
         if (!name || !price || !quantity || !description || !category || !ingredients) {
@@ -221,9 +225,9 @@ const AdminProducts = () => {
                             className={styles.select}
                         >
                             <option value="">Seleziona categoria...</option>
-                            {categories.map((cat) => (
-                                <option key={cat.id} value={cat.name}>
-                                    {cat.name}
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.name}
                                 </option>
                             ))}
                         </select>
@@ -256,36 +260,45 @@ const AdminProducts = () => {
                     <div className={styles.productContainer}>
                         <h2>Lista dei prodotti</h2>
                         <ul className={styles.productList}>
-                            {products.map((product) => (
-                                <li key={product.id} className={styles.productItem}>
-                                    <div className={styles.productInfo}>
-                                        {product.name} - {product.price}€ - {product.quantity} pz disponibili
+                            {filteredCategories.length === 0 ? (
+                                <p>Nessun ptodotto trovato</p>
+                            ) : (
+                                filteredCategories.map((category) => (
+                                    <div key={category.id}>
+                                        {category.products.map(({product, ingredients}) => (
+                                            <li key={product.id} className={styles.productItem}>
+                                            <div className={styles.productInfo}>
+                                                {product.product_name} - {product.price}€ - {product.quantity} pz disponibili
+                                                <br />{ingredients.map(ingredient => ingredient.name).join(",  ")}
+                                            </div>
+                                            <div className={styles.buttons}>
+                                                <button
+                                                    onClick={() => handleDeleteProduct(product.id)}
+                                                    className={styles.deleteButton}
+                                                >
+                                                    Rimuovi
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setName(product.name);
+                                                        setPrice(product.price);
+                                                        setQuantity(product.quantity);
+                                                        setDescription(product.description);
+                                                        setCategory(product.category.id);
+                                                        setIngredients(product.ingredients);
+                                                        setEditId(product.id);
+                                                        setImage(product.image || null);
+                                                    }}
+                                                    className={styles.editButton}
+                                                >
+                                                    Modifica
+                                                </button>
+                                            </div>
+                                        </li>
+                                        ))}
                                     </div>
-                                    <div className={styles.buttons}>
-                                        <button
-                                            onClick={() => handleDeleteProduct(product.id)}
-                                            className={styles.deleteButton}
-                                        >
-                                            Rimuovi
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                setName(product.name);
-                                                setPrice(product.price);
-                                                setQuantity(product.quantity);
-                                                setDescription(product.description);
-                                                setCategory(product.category);
-                                                setIngredients(product.ingredients);
-                                                setEditId(product.id);
-                                                setImage(product.image || null);
-                                            }}
-                                            className={styles.editButton}
-                                        >
-                                            Modifica
-                                        </button>
-                                    </div>
-                                </li>
-                            ))}
+                                ))
+                            )}
                         </ul>
                     </div>
                 </div>
