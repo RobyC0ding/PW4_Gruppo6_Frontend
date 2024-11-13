@@ -84,9 +84,10 @@ export default function ProductSlug({params}) {
             <HeaderLoginUtente/>
             <div className={styles.productContainer}>
                 <div className={styles.imageContainer}>
-                    <Image src={product.image_link} width={400} height={500}
+                    <Image src={`/images/prodotti/${product.product.image_link}`}  width={400} height={500}
                            alt="Immagine prodotto"/>
                 </div>
+
 
                 <div className={styles.productDetails}>
                     <p className={styles.category}><strong>Categoria: {product.product.category.name} </strong></p>
