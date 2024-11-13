@@ -7,8 +7,8 @@ import HeaderLoginUtente from "@/components/headerLoginUtente";
 import Footer from "@/components/footer";
 import Link from "next/link";
 
-async function fetchProduct(slug) {
-    const response = await fetch(`http://localhost:8080/product/${slug}`, {
+async function fetchProduct(id) {
+    const response = await fetch(`http://localhost:8080/product/${id}`, {
         credentials: 'include',
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
@@ -20,18 +20,23 @@ async function fetchProduct(slug) {
     return await response.json();
 }
 
+
 export default function ProductSlug({params}) {
-    const {slug} = params;
+
+    const slug = params?.slug;
+
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [orderStatus, setOrderStatus] = useState('');
     const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         const loadProduct = async () => {
             try {
                 setLoading(true);
                 const data = await fetchProduct(slug);
+                console.log(data);
                 setProduct(data);
             } catch (error) {
                 console.error("Failed to fetch product:", error);
@@ -39,16 +44,16 @@ export default function ProductSlug({params}) {
                 setLoading(false);
             }
         };
-        loadProduct();
+        if (slug) loadProduct();
     }, [slug]);
 
     const handleQuantityChange = (event) => {
         setQuantity(event.target.value);
     };
 
-    const handleOrder = async () => {
+    const handleOrder = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8080/products/${slug}/dashboard-utente`, {
+            const response = await fetch(`http://localhost:8080/product/${id}`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'},
@@ -56,7 +61,7 @@ export default function ProductSlug({params}) {
             });
 
             if (response.ok) {
-                setOrderStatus('Prodotto ordinato');
+                setOrderStatus('Prodotto ordinato. Visualizzalo nel carrello');
             } else {
                 console.error(`HTTP error! status: ${response.status}`);
                 setOrderStatus('Prodotto non ordinato. Riprova.');
@@ -74,30 +79,34 @@ export default function ProductSlug({params}) {
     if (!product) {
         return <div className={styles.error}>Errore nel caricamento del prodotto</div>;
     }
-
     return (
         <>
             <HeaderLoginUtente/>
             <div className={styles.productContainer}>
                 <div className={styles.imageContainer}>
-                    <Image src={product.imageUrl || "/path/to/default-image.jpg"} width={400} height={500}
+                    <Image src={product.image_link} width={400} height={500}
                            alt="Immagine prodotto"/>
                 </div>
 
                 <div className={styles.productDetails}>
-                    <p className={styles.category}><strong>Categoria: </strong> {product.Category_id}</p>
-                    <h1 className={styles.titleProduct}>{product.name}</h1>
-                    <p className={styles.price}>€ {product.price}</p>
-                    <p className={styles.description}>{product.description}</p>
-                    <p className={styles.ingredients}><strong>Ingredienti:<br/></strong> {product.ingredients}</p>
+                    <p className={styles.category}><strong>Categoria: {product.product.category.name} </strong></p>
+                    <h1 className={styles.titleProduct}>{product.product.name}</h1>
+                    <p className={styles.price}>€ {product.product.price}</p>
+                    <p className={styles.description}>{product.product.description}</p>
+                    <p className={styles.ingredients}>
+                        <strong>Ingredienti:<br/></strong>
+                        {product.ingredients.map((ingredient, i) => (
+                            <span key={i}>{ingredient.name}{i < product.ingredients.length - 1 ? ', ' : ''}</span>
+                        ))}
+                    </p>
 
                     <div className={styles.quantity}>
                         <label htmlFor="quantity">Quantità: </label>
                         <input
                             type="number"
                             id="quantity"
-                            value={quantity}
-                            min="1"
+                            value={product.product.quantity}
+                            min="0"
                             onChange={handleQuantityChange}
                         />
                     </div>
@@ -109,7 +118,7 @@ export default function ProductSlug({params}) {
                             </button>
                         </Link>
                     ) : (
-                        <button onClick={handleOrder} className={styles.addToCartButton}>
+                        <button onClick={() => handleOrder(slug)} className={styles.addToCartButton}>
                             Aggiungi al carrello
                         </button>
                     )}
