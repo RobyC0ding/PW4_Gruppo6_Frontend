@@ -23,6 +23,16 @@
 
 }
 
+.pAcquisto{
+    color: rgba(243, 188, 159);
+    font-family: 'Quicksand';
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
 .content {
     width: 100%;
     display: flex;
@@ -56,7 +66,12 @@
     border: 1px solid rgba(243, 188, 159, 1) !important;
     border-radius: 8px;
     height: auto;
+    transition: 0.3s ease;
     
+}
+
+.productCard:hover{
+    transform: scale(1.05);
 }
 
 .productInfo{
@@ -76,24 +91,6 @@
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-}
-
-
-
-.quantityControl button {
-    padding: 0.5rem 1rem;
-    background-color: rgb(213, 171, 194);
-    color: #fff;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .quantityControl button:hover {
@@ -123,7 +120,7 @@
     height: 3rem;
     padding: 8px;
     margin-bottom: 10px;
-    border: 3px solid #ddd;
+    border: 1px solid rgba(243, 188, 159, 1) !important;;
     border-radius: 4px;
     color: black;
     font-family: 'Quicksand';

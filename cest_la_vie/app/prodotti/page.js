@@ -58,6 +58,7 @@ export default function Page() {
                     <h1 className={styles.mainTitle}>I nostri prodotti</h1>
                 </div>
             </div>
+            <p className={styles.pAcquisto}>*per acquistare selezionare un prodotto</p>
             <div className={styles.content}>
                 <div className={styles.catalog}>
                     {filteredCategories.length === 0 ? (
