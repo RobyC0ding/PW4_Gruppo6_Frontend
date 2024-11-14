@@ -11,7 +11,113 @@ const Carrello = () => {
     const [ore, setOre] = useState([]);
     const [selectedDate, setSelectedDate] = useState("");
     const [selectedTime, setSelectedTime] = useState("");
+    const [utente, setUtente] = useState("");
 
+    useEffect(() => {
+        const fetchUser= async () => {
+            try {
+                const response = await fetch("http://localhost:8080/user/fromSession");
+                const data = await response.json();
+                setUtente(data)
+            } catch (error) {
+                console.error("Errore durante dell'utente", error);
+            }
+        };
+
+        fetchUser();
+    }, []);
+
+    useEffect(() => {
+        const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        setProdotti(cartItems);
+    }, []);
+
+    useEffect(() => {
+        const generateAvailableDates = () => {
+            const dates = [];
+            const today = new Date();
+            for (let i = 0; i < 30; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() + i);
+                dates.push(date.toISOString().split("T")[0]); // Formatta come YYYY-MM-DD
+            }
+            setDate(dates);
+            setSelectedDate(dates[0]); // Imposta la data selezionata come la prima disponibile
+        };
+
+        generateAvailableDates();
+    }, []);
+
+    useEffect(() => {
+        const generateAvailableTimes = () => {
+            const times = [];
+            const startHour = 9; // Orario di apertura
+            const endHour = 19; // Orario di chiusura
+            for (let hour = startHour; hour <= endHour; hour++) {
+                times.push(`${hour.toString().padStart(2, '0')}:00`); // Formatta come HH:MM
+            }
+            setOre(times);
+            setSelectedTime(times[0]); // Imposta l'orario selezionato come il primo disponibile
+        };
+
+        generateAvailableTimes();
+    }, []);
+
+    const handleOrder = async () => {
+        console.log("CI SIAMO");
+        const orderData = {
+            user_id: utente,
+            products: prodotti,
+            pickup_date: selectedDate + "T"+ selectedTime+":00.000Z",
+            pickup_time: selectedTime,
+            creation_date: new Date().toISOString(),
+            status: "pending",
+            comments: [],
+        };
+        console.log(orderData);
+
+        try {
+            debugger
+            const response = await fetch("http://localhost:8080/order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(orderData),
+            });
+
+            if (response.ok) {
+                console.log("molto bene");
+                alert("Ordine effettuato con successo!");
+                localStorage.removeItem("cart");
+                setProdotti([]);
+            } else {
+                console.log("male");
+                console.error(`Errore nell'invio dell'ordine: ${response.status}`);
+            }
+        } catch (error) {
+            console.error("Errore durante l'invio dell'ordine:", error);
+        }
+    };
+
+    //prendi lolcal store cart
+    //prendi dalla sessione l'id utente
+    //prendi dagli input pickpu_time, pickup_date
+    //prendi la giornata di oggi creation_date   ISTANT(2024-11-15T15:00:00Z) poichè Mongodb
+
+    //crei oggetto complesso
+    /*
+    
+    const data={
+  "user_id": 12345, //prendi dalla sessione l'id utente
+  "products": //prendi lolcal store cart,
+  "pickup_date": "2024-11-15T15:00:00Z",
+  "pickup_time": "15:55",
+  "creation_date": Date.now(),
+  "status": "pending",
+  "comments": [
+  ]
+}
+
+    */
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -28,30 +134,7 @@ const Carrello = () => {
     }, []);
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Recupera le date disponibili
-                const dateResponse = await fetch("http://localhost:8080/api/ritiro/dates");
-                const dateData = await dateResponse.json();
-                setDate(dateData);
-
-                // Recupera le ore disponibili per la prima data
-                if (dateData.length > 0) {
-                    const timeResponse = await fetch(
-                        `http://localhost:8080/api/ritiro/times?date=${dateData[0]}`
-                    );
-                    const timeData = await timeResponse.json();
-                    setOre(timeData);
-                    setSelectedDate(dateData[0]);
-                }
-            } catch (error) {
-                console.error("Errore durante il caricamento dei dati:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
+    
 
 
     const handleDateChange = async (e) => {
@@ -81,7 +164,6 @@ const Carrello = () => {
                         {prodotti.map((product) => (
                             <ul key={product.id}>
                                 <h3>{product.name}</h3>
-                                <p>Descrizione: {product.description}</p>
                                 <p>Quantità: {product.quantity}</p>
                                 <p>Prezzo: €{product.price}</p>
                             </ul>
@@ -131,7 +213,7 @@ const Carrello = () => {
                     <br/>
                     <br/>
 
-                    <Link href="/dashboard-utente" passHref>
+                    <Link onClick={handleOrder} href="/dashboard-utente" passHref>
                         <div className={styles.buttonOrder}>
                             <p>Clicca qui per ordinare</p>
                         </div>

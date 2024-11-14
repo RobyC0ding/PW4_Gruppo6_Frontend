@@ -1,6 +1,6 @@
 "use client";
 
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Image from "next/image";
 import styles from "@/app/prodotti/[slug]/page.module.css";
 import HeaderLoginUtente from "@/components/headerLoginUtente";
@@ -11,7 +11,7 @@ async function fetchProduct(id) {
     const response = await fetch(`http://localhost:8080/product/${id}`, {
         credentials: 'include',
         method: 'GET',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
     });
 
     if (!response.ok) {
@@ -20,16 +20,13 @@ async function fetchProduct(id) {
     return await response.json();
 }
 
-
-export default function ProductSlug({params}) {
-
+export default function ProductSlug({ params }) {
     const slug = params?.slug;
 
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState('0 pz.');
     const [orderStatus, setOrderStatus] = useState('');
     const [loading, setLoading] = useState(true);
-
 
     useEffect(() => {
         const loadProduct = async () => {
@@ -57,21 +54,29 @@ export default function ProductSlug({params}) {
 
     const handleOrder = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8080/product/${id}`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({quantity}),
-            });
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-            if (response.ok) {
-                setOrderStatus('Prodotto ordinato. Visualizzalo nel carrello');
+            const existingProductIndex = cart.findIndex(item => item.id === id);
+
+            const numericQuantity = parseInt(quantity.replace(' pz.', '')) || 0;
+            if (existingProductIndex !== -1) {
+                cart[existingProductIndex].quantity += numericQuantity;
             } else {
-                console.error(`HTTP error! status: ${response.status}`);
-                setOrderStatus('Prodotto non ordinato. Riprova.');
+                cart.push({
+                    id: product.product.id,
+                    name: product.product.product_name,
+                    price: product.product.price,
+                    quantity: numericQuantity,
+                });
             }
+
+            // Save the updated cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Update order status message
+            setOrderStatus('Prodotto ordinato. Visualizzalo nel carrello');
         } catch (error) {
-            console.error("Failed to request a product:", error);
+            console.error("Failed to save product to cart:", error);
             setOrderStatus('Prodotto non ordinato. Riprova.');
         }
     };
@@ -83,15 +88,15 @@ export default function ProductSlug({params}) {
     if (!product) {
         return <div className={styles.error}>Errore nel caricamento del prodotto</div>;
     }
+
     return (
         <>
-            <HeaderLoginUtente/>
+            <HeaderLoginUtente />
             <div className={styles.productContainer}>
                 <div className={styles.imageContainer}>
-                    <Image src={`/images/prodotti/${product.product.image_link}`}  width={400} height={500}
-                           alt="Immagine prodotto"/>
+                    <Image src={`/images/prodotti/${product.product.image_link}`} width={400} height={500}
+                        alt="Immagine prodotto" />
                 </div>
-
 
                 <div className={styles.productDetails}>
                     <p className={styles.category}><strong>Categoria: {product.product.category.name} </strong></p>
@@ -99,28 +104,37 @@ export default function ProductSlug({params}) {
                     <p className={styles.price}>€ {product.product.price}</p>
                     <p className={styles.description}>{product.product.description}</p>
                     <p className={styles.ingredients}>
-                        <strong>Ingredienti:<br/></strong>
+                        <strong>Ingredienti:<br /></strong>
                         {product.ingredients.map((ingredient, i) => (
                             <span key={i}>{ingredient.name}{i < product.ingredients.length - 1 ? ', ' : ''}</span>
                         ))}
                     </p>
 
                     <div className={styles.quantityWrapper}>
-                            <input
-                                type="text"
-                                value={quantity}
-                                onChange={(e) => {
-                                    const numericValue = parseInt(e.target.value.replace('pz', '')) || 0;
-                                    setQuantity(`${numericValue}pz`);
-                                }}
-                                placeholder="Quantità..."
-                                className={styles.input}
-                            />
-                            <div className={styles.stylebutton}>
-                                <button onClick={() => handleQuantityChange(+1)} className={styles.quantityButton}><svg className={styles.plus} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#808"><path d="M20 11h-7V4c0-.55-.45-1-1-1s-1 .45-1 1v7H4c-.55 0-1 .45-1 1s.45 1 1 1h7v7c0 .55.45 1 1 1s1-.45 1-1v-7h7c.55 0 1-.45 1-1s-.45-1-1-1Z" ></path></svg></button>
-                                <button onClick={() => handleQuantityChange(-1)} className={styles.quantityButton}><svg className={styles.minus} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#808"><path d="M20 11H4c-.55 0-1 .45-1 1s.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1Z"></path></svg></button>
-                            </div>
+                        <input
+                            type="text"
+                            value={quantity}
+                            onChange={(e) => {
+                                const numericValue = parseInt(e.target.value.replace('pz', '')) || 0;
+                                setQuantity(`${numericValue} pz.`);
+                            }}
+                            placeholder="Quantità..."
+                            className={styles.input}
+                            max={quantity}
+                        />
+                        <div className={styles.stylebutton}>
+                            <button onClick={() => handleQuantityChange(+1)} className={styles.quantityButton}>
+                                <svg className={styles.plus} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#808">
+                                    <path d="M20 11h-7V4c0-.55-.45-1-1-1s-1 .45-1 1v7H4c-.55 0-1 .45-1 1s.45 1 1 1h7v7c0 .55.45 1 1 1s1-.45 1-1v-7h7c.55 0 1-.45 1-1s-.45-1-1-1Z"></path>
+                                </svg>
+                            </button>
+                            <button onClick={() => handleQuantityChange(-1)} className={styles.quantityButton}>
+                                <svg className={styles.minus} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#808">
+                                    <path d="M20 11H4c-.55 0-1 .45-1 1s.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1Z"></path>
+                                </svg>
+                            </button>
                         </div>
+                    </div>
 
                     {orderStatus === 'Prodotto ordinato' ? (
                         <Link href="/carrello" passHref>
@@ -137,7 +151,7 @@ export default function ProductSlug({params}) {
                     {orderStatus && <p className={styles.orderStatus}>{orderStatus}</p>}
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
     );
 }

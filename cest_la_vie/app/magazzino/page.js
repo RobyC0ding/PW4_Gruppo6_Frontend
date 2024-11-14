@@ -7,7 +7,6 @@ import Footer from '@/components/footer';
 const AdminProducts = () => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [ingredients, setAllIngredients] = useState([]);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -15,11 +14,10 @@ const AdminProducts = () => {
     const [category, setCategory] = useState('');
     const [editId, setEditId] = useState(null);
     const [error, setError] = useState('');
-    const [image, setImage] = useState(null);
-    const [isImageSelected, setIsImageSelected] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const [ingredients, setAllIngredients] = useState([]);
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
 
-    // Fetch products and categories on component mount
     useEffect(() => {
         const fetchCatalog = async () => {
             try {
@@ -34,7 +32,7 @@ const AdminProducts = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setCategories(data);
-                    
+
                 } else {
                     throw new Error('Errore nella richiesta dei prodotti');
                 }
@@ -47,8 +45,8 @@ const AdminProducts = () => {
     }, []);
 
     useEffect(() => {
-        const fetchIngredients = async () =>{
-            try{
+        const fetchIngredients = async () => {
+            try {
                 const response = await fetch(`http://localhost:8080/ingredients`, {
                     method: 'GET',
                     credentials: 'include',
@@ -59,7 +57,7 @@ const AdminProducts = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setAllIngredients(data);
-                    
+
                 } else {
                     throw new Error('Errore nella richiesta dei prodotti');
                 }
@@ -70,8 +68,25 @@ const AdminProducts = () => {
         fetchIngredients();
     }, []);
 
-    
 
+
+    const handleIngredientSelect = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions).map(option =>
+            ingredients.find(ingredient => ingredient.name === option.value)
+        );
+
+        
+        const updatedIngredients = selectedOptions.reduce((acc, ingredient) => {
+            
+            if (acc.some(existingIngredient => existingIngredient.id === ingredient.id)) {
+                return acc.filter(existingIngredient => existingIngredient.id !== ingredient.id);
+            }
+            
+            return [...acc, ingredient];
+        }, selectedIngredients);
+
+        setSelectedIngredients(updatedIngredients);
+    };
     const filteredCategories = categories.map((category) => ({
         ...category,
         products: category.products.filter(({ product }) =>
@@ -79,14 +94,25 @@ const AdminProducts = () => {
         ),
     })).filter(category => category.products.length > 0);
 
+
     const handleAddProduct = async () => {
-        if (!name || !price || !quantity || !description || !category || !ingredients) {
+        if (!name || !price || !quantity || !description || !category || !selectedIngredients.length) {
             setError('Tutti i campi sono obbligatori');
             return;
         }
-
-        const newProduct = { name, price, quantity, description, category, ingredients, image };
+    
+        // Modifica qui: invia solo l'ID della categoria
+        const newProduct = {
+            name,
+            price,
+            quantity,
+            description,
+            category: category, // Assicurati che 'category' sia solo l'ID numerico
+            ingredients: selectedIngredients,
+        };
+    
         try {
+            console.log(newProduct);
             const response = await fetch('http://localhost:8080/product', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -103,16 +129,26 @@ const AdminProducts = () => {
             setError(err.message);
         }
     };
+    
 
-    const handleEditProduct = async () => {
-        if (!name || !price || !quantity || !description || !category || !ingredients) {
+    const handleEditProduct = async (id) => {
+        if (!name || !price || !quantity || !description || !category || !selectedIngredients) {
             setError('Tutti i campi sono obbligatori');
             return;
         }
-
-        const updatedProduct = { name, price, quantity, description, category, ingredients, image };
+    
+        const updatedProduct = {
+            name,
+            price,
+            quantity,
+            description,
+            category: category, // Assicurati che qui venga passato solo l'ID della categoria
+            ingredients: selectedIngredients,
+        };
+        console.log(updatedProduct);
+    
         try {
-            const response = await fetch(`http://localhost:8080/product/${editId}`, {
+            const response = await fetch(`http://localhost:8080/product`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatedProduct),
@@ -131,6 +167,7 @@ const AdminProducts = () => {
             setError(err.message);
         }
     };
+    
 
     const handleDeleteProduct = async (id) => {
         try {
@@ -151,8 +188,7 @@ const AdminProducts = () => {
         setQuantity('');
         setDescription('');
         setCategory('');
-        setAllIngredients('');
-        setImage(null);
+        setSelectedIngredients([]);
         setIsImageSelected(false);
         setError('');
     };
@@ -160,7 +196,7 @@ const AdminProducts = () => {
     const handleQuantityChange = (delta) => {
         setQuantity((prevQuantity) => {
             const numericQuantity = parseInt(prevQuantity.toString().replace('pz', '')) || 0;
-            return `${Math.max(numericQuantity + delta, 0)} pz.`;
+            return `${Math.max(numericQuantity + delta, 0)}`;
         });
     };
 
@@ -171,15 +207,6 @@ const AdminProducts = () => {
         });
     };
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setImage(URL.createObjectURL(file));
-            setIsImageSelected(true);
-        } else {
-            setIsImageSelected(false);
-        }
-    };
 
     return (
         <body>
@@ -208,20 +235,21 @@ const AdminProducts = () => {
                         />
                         <select
                             multiple
-                            value={ingredients}
-                            onChange={(e) => {
-                                const selectedIngredients = Array.from(e.target.selectedOptions, option => option.value);
-                                setAllIngredients(selectedIngredients);
-                            }}
+                            value={selectedIngredients.map(ingredient => ingredient.name)}
+                            onChange={handleIngredientSelect}
                             className={styles.select}
                         >
-                            <option value="">Seleziona ingredienti...</option>
                             {ingredients.map((ingredient) => (
-                                <option key={ingredient.id} value={ingredient.name}>
+                                <option type="radio" key={ingredient.id} value={ingredient.name}>
                                     {ingredient.name}
                                 </option>
                             ))}
                         </select>
+                        <ul>
+                            {selectedIngredients.map((ingredient, index) => (
+                                <li key={index}>{ingredient.name}</li>
+                            ))}
+                        </ul>
                         <div className={styles.quantityWrapper}>
                             <input
                                 type="textarea"
@@ -257,7 +285,7 @@ const AdminProducts = () => {
 
                         <select
                             value={category}
-                            onChange={(e) => setCategory(e.target.value)}
+                            onChange={(e) => setCategory(e.target.value)} // Impostiamo solo l'ID della categoria
                             className={styles.select}
                         >
                             <option value="">Seleziona categoria...</option>
@@ -267,23 +295,6 @@ const AdminProducts = () => {
                                 </option>
                             ))}
                         </select>
-                        <input
-                            type='file'
-                            accept='image/*'
-                            id='imageUpload'
-                            onChange={handleImageChange}
-                            className={styles.inputFile}
-                        />
-
-                        <label htmlFor="imageUpload" className={styles.customFileButton}>
-                            <p className={styles.pButton}>Carica immagine</p>
-                        </label>
-                        <div className={`${styles.fileInputContainer} ${isImageSelected ? styles.visible : ''}`} >
-                            <div className={styles.anteprima}>
-                                {image && <img src={image} alt="anteprima" className={styles.background} />}
-                            </div>
-                        </div>
-
                         <button
                             onClick={editId ? handleEditProduct : handleAddProduct}
                             className={styles.button}
@@ -316,14 +327,13 @@ const AdminProducts = () => {
                                                     </button>
                                                     <button
                                                         onClick={() => {
+                                                            setEditId(product.id);
                                                             setName(product.product_name);
                                                             setPrice(product.price);
                                                             setQuantity(product.quantity);
                                                             setDescription(product.description);
                                                             setCategory(product.category.id);
-                                                            setIngredients(product.ingredients);
-                                                            setEditId(product.id);
-                                                            setImage(product.image || null);
+                                                            setAllIngredients(ingredients);
                                                         }}
                                                         className={styles.editButton}
                                                     >

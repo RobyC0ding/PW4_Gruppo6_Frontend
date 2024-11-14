@@ -83,6 +83,7 @@ export default function Page() {
                                                     <p className={styles.info}><strong>Descrizione:</strong> {product.description}</p>
                                                     <p className={styles.info}><strong>Prezzo:</strong> €{product.price}</p>
                                                     <p className={styles.info}><strong>Ingredienti:</strong> {ingredients.map(ingredient => ingredient.name).join(", ")}</p>
+                                                    <p className={styles.info}><strong>Quantità:</strong> {product.quantity}</p>
                                                 </div>
                                             </div>
                                         </Link>
