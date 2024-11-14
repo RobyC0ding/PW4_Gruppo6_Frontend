@@ -152,7 +152,7 @@ export default function DashboardUtente() {
                                     <p>Ritiro
                                         previsto: {new Date(order.pickup_date).toLocaleString()} alle {order.pickup_time}</p>
                                     <div>
-                                        <h3 className={styles.h3}>Prodotti:</h3>
+                                        <p className={styles.h3}>Prodotti:</p>
                                         {order.products.map((product, index) => (
                                             <div key={index}>
                                                 <p>{product.product_name} - {product.quantity} x €{product.price}</p>
@@ -221,7 +221,7 @@ export default function DashboardUtente() {
                                             <p>{product.product_name} - {product.quantity} x €{product.price}</p>
                                         </div>
                                     ))}
-                                    <p><strong>Totale:
+                                    <p className={styles.h3}><strong>Totale:
                                         €{order.products.reduce((acc, product) => acc + (product.price * product.quantity), 0).toFixed(2)}</strong>
                                     </p>
                                 </div>

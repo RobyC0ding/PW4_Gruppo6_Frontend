@@ -156,123 +156,77 @@
 }
 
 
-/* Media query per tablet (max-width 1024px) */
-@media (max-width: 1024px) {
-    .welcomeUser {
-        padding: 50px;
-        display: flex;
-        flex-direction: column; /* Gli elementi sono allineati verticalmente */
-        align-items: center;
-    }
-
-    .welcomeUser h1 {
-        font-size: 30px;
-    }
-
-    .welcomeUser p {
-        font-size: 14px;
-    }
-
-    .dashboardSection {
-        width: 100%;
-        margin-left: 15px;
-        margin-right: 15px;
-        display: flex;
-        flex-direction: column; /* Allinea gli elementi verticalmente */
-    }
-
-    .dashboardSection h2 {
-        font-size: 20px;
-    }
-
-    .dashboardSection p {
-        font-size: 14px;
-    }
-
-    .dashboardContainer {
-        flex-direction: column;
-        align-items: stretch;
-    }
-}
-
-/* Media query per tablet (max-width 768px) */
+/* Media query per tablet (max-width: 768px) */
 @media (max-width: 768px) {
     .welcomeUser {
-        padding: 40px;
+        padding: 30px;
+        display: block;
+        margin-bottom: 50px;
+    }
+
+    .dashboardContainer, .columnSection {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .welcomeUser h1 {
-        font-size: 28px;
-    }
-
-    .welcomeUser p {
-        font-size: 14px;
-    }
-
-    .dashboardSection {
-        width: 100%;
-        margin-left: 10px;
-        margin-right: 10px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .dashboardSection h2 {
-        font-size: 18px;
-    }
-
-    .dashboardSection p {
-        font-size: 14px;
-    }
-
-    .dashboardContainer {
         flex-direction: column;
         align-items: stretch;
     }
+
+    .dashboardSection, .orderHistory, .dashboardSectionComment {
+        width: 100%;
+        margin: 10px 0;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .button, .buttonSend {
+        width: 70%;
+        align-self: center;
+    }
 }
 
-
+/* Media query per mobile (max-width: 480px) */
 @media (max-width: 480px) {
     .welcomeUser {
         padding: 20px;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
+    }
+
+    .dashboardContainer, .columnSection {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .welcomeUser h1 {
-        font-size: 24px;
-    }
-
-    .welcomeUser p {
-        font-size: 12px;
-    }
-
-    .dashboardSection {
-        width: 100%;
-        margin: 0 5px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .dashboardSection h2 {
-        font-size: 16px;
-    }
-
-    .dashboardSection p {
-        font-size: 12px;
-        padding-bottom: 20px;
-    }
-
-    .dashboardContainer {
-        margin-bottom: 40px;
-        padding: 0 10px;
         flex-direction: column;
         align-items: stretch;
+
     }
+
+    .dashboardSection, .orderHistory, .dashboardSectionComment {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 5px 0px 5px 20px;
+    }
+    .orderHistory{
+        margin-left: 20px;
+    }
+
+    .button, .buttonSend {
+        width: 90%;
+        align-self: center;
+        padding: 8px;
+        text-align: center;
+    }
+    .buttonSend{
+        width: 90%;
+        margin:0;
+        margin-top: 30px;
+        margin-bottom: 80px;
+    }
+
+    .textarea{
+       width: 90%;
+
+    }
+
 }
+
+
 
