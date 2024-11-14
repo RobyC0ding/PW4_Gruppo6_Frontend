@@ -117,6 +117,7 @@ const AdminProducts = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newProduct),
+                credentials:'include',
             });
             if (response.ok) {
                 const addedProduct = await response.json();
@@ -132,12 +133,14 @@ const AdminProducts = () => {
     
 
     const handleEditProduct = async (id) => {
+        console.log(id);
         if (!name || !price || !quantity || !description || !category || !selectedIngredients) {
             setError('Tutti i campi sono obbligatori');
             return;
         }
     
         const updatedProduct = {
+            editId,
             name,
             price,
             quantity,
@@ -190,7 +193,6 @@ const AdminProducts = () => {
         setDescription('');
         setCategory('');
         setSelectedIngredients([]);
-        setIsImageSelected(false);
         setError('');
     };
 
@@ -273,7 +275,7 @@ const AdminProducts = () => {
                                 value={quantity}
                                 onChange={(e) => {
                                     const numericValue = parseInt(e.target.value.replace('pz', '')) || 0;
-                                    setQuantity(`${numericValue}pz`);
+                                    setQuantity(`${numericValue}`);
                                 }}
                                 placeholder="Quantità..."
                                 className={styles.input}
