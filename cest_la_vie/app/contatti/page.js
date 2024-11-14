@@ -8,6 +8,7 @@ import Image from "next/image";
 import igLogo from "@/public/instagram-2-1-logo-svgrepo-com.svg";
 import fbLogo from "@/public/facebook-color-svgrepo-com.svg";
 import ParallaxSectionContacts from "@/components/parallaxSectionContacts";
+import Link from "next/link";
 
 
 export default function Contatti() {
@@ -49,7 +50,9 @@ export default function Contatti() {
             </button>
 
             <button className={styles.orderButton}>
-                Ordina Online
+                <Link href="/register">
+                    Ordina Online
+                </Link>
             </button>
         </div>
 
