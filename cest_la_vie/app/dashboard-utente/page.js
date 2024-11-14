@@ -3,22 +3,59 @@
 import styles from '@/app/dashboard-utente/page.module.css';
 import HeaderLoginUtente from "@/components/headerLoginUtente";
 import Footer from "@/components/footer";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 export default function DashboardUtente() {
     const [orders, setOrders] = useState([]); // Ordini generali
     const [orderStatus, setOrderStatus] = useState(null); // Stato generico
-    const [showCommentBox, setShowCommentBox] = useState(false); // Commento
-    const [comment, setComment] = useState(''); // Commento utente
+    const [showCommentBox, setShowCommentBox] = useState({}); // Commento, gestione per singolo ordine
+    const [comments, setComments] = useState({}); // Commenti per ordine
     const [userId, setUserId] = useState(null); // Placeholder for userId, replace with actual value
 
-    const handleCommentChange = (e) => {
-        setComment(e.target.value);
+    const handleCommentChange = (e, orderId) => {
+        setComments(prevComments => ({
+            ...prevComments,
+            [orderId]: e.target.value,
+        }));
     };
 
-    const handleCommentToggle = () => {
-        setShowCommentBox((prevState) => !prevState);
+    const handleCommentToggle = (orderId) => {
+        setShowCommentBox(prevState => ({
+            ...prevState,
+            [orderId]: !prevState[orderId], // Toggles the visibility of the comment box for the order
+        }));
     };
+
+    const handleCommentSubmit = async (orderId) => {
+        const comment = comments[orderId];
+
+        if (!comment) return;
+
+        try {
+            const response = await fetch(`http://localhost:8080/comment?orderId=${orderId}`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ comment }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Errore nel server: ${response.status} ${response.statusText}`);
+            }
+
+            // Dopo la sottomissione con successo, nascondi la casella di commento
+            setShowCommentBox(prevState => ({
+                ...prevState,
+                [orderId]: false,
+            }));
+            alert('Commento inviato con successo');
+        } catch (error) {
+            console.error('Errore nel invio del commento:', error);
+        }
+    };
+
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -37,7 +74,6 @@ export default function DashboardUtente() {
                 const userData = await userResponse.json();
                 setUserId(userData);
 
-                //prende tutti gli ordini di un utente con l'id del utente
                 const orderResponse = await fetch(`http://localhost:8080/order/user/${userId}`, {
                     method: 'GET',
                     credentials: 'include',
@@ -45,11 +81,11 @@ export default function DashboardUtente() {
                         'Content-Type': 'application/json',
                     },
                 });
+
                 if (!orderResponse.ok) {
                     throw new Error(`Errore nel server: ${orderResponse.status} ${orderResponse.statusText}`);
                 }
 
-                // Converti la risposta in formato JSON
                 const orderData = await orderResponse.json();
                 setOrders(orderData);
             } catch (error) {
@@ -63,17 +99,14 @@ export default function DashboardUtente() {
     const pendingOrders = orders.filter(order => order.status === 'pending');
     const acceptedOrders = orders.filter(order => order.status === 'accepted');
     const refusedOrders = orders.filter(order => order.status === 'refused');
-    const takenOrders = orders.filter(order => order.status === 'taken');
 
-    //
-    //quarta lista ordine di tempo  tutti
+    const takenOrders = orders.filter(order => order.status === 'taken');
 
     return (
         <>
             <HeaderLoginUtente/>
             <div className={styles.welcomeUser}>
-                <h1>Benvenuto </h1>
-                <p>roberto.zuccaro@itsincom.it</p>
+                <h1>Benvenuto nella tua dashboard</h1>
             </div>
             <div className={styles.dashboardContainer}>
                 <div className={styles.dashboardSection}>
@@ -87,7 +120,7 @@ export default function DashboardUtente() {
                                     <p>Ritiro
                                         previsto: {new Date(order.pickup_date).toLocaleString()} alle {order.pickup_time}</p>
                                     <div>
-                                        <h3>Prodotti:</h3>
+                                        <p className={styles.h3}>Prodotti:</p>
                                         {order.products.map((product, index) => (
                                             <div key={index}>
                                                 <p>{product.product_name} - {product.quantity} x €{product.price}</p>
@@ -97,6 +130,7 @@ export default function DashboardUtente() {
                                             €{order.products.reduce((acc, product) => acc + (product.price * product.quantity), 0).toFixed(2)}</strong>
                                         </p>
                                     </div>
+                                    <br></br>
                                 </div>
                             ))
                         ) : (
@@ -118,7 +152,7 @@ export default function DashboardUtente() {
                                     <p>Ritiro
                                         previsto: {new Date(order.pickup_date).toLocaleString()} alle {order.pickup_time}</p>
                                     <div>
-                                        <h3>Prodotti:</h3>
+                                        <h3 className={styles.h3}>Prodotti:</h3>
                                         {order.products.map((product, index) => (
                                             <div key={index}>
                                                 <p>{product.product_name} - {product.quantity} x €{product.price}</p>
@@ -127,6 +161,7 @@ export default function DashboardUtente() {
                                         <p><strong>Totale:
                                             €{order.products.reduce((acc, product) => acc + (product.price * product.quantity), 0).toFixed(2)}</strong>
                                         </p>
+                                        <br></br>
                                     </div>
                                 </div>
                             ))
@@ -136,18 +171,19 @@ export default function DashboardUtente() {
                     </div>
                 </div>
 
+
                 <div className={styles.dashboardSection}>
-                    <h2>Ordini pronti</h2>
-                    <p>Visualizza i tuoi ordini pronti per il ritiro</p>
+                    <h2>Ordini rifiutati</h2>
+                    <p>Visualizza i tuoi ordini rifiutati</p>
                     <div>
-                        {takenOrders.length > 0 ? (
-                            takenOrders.map((order) => (
+                        {refusedOrders.length > 0 ? (
+                            refusedOrders.map((order) => (
                                 <div key={order.id} className={styles.orderCard}>
                                     <p>Data creazione: {new Date(order.creation_date).toLocaleString()}</p>
                                     <p>Ritiro
                                         previsto: {new Date(order.pickup_date).toLocaleString()} alle {order.pickup_time}</p>
                                     <div>
-                                        <h3>Prodotti:</h3>
+                                        <p className={styles.h3}>Prodotti:</p>
                                         {order.products.map((product, index) => (
                                             <div key={index}>
                                                 <p>{product.product_name} - {product.quantity} x €{product.price}</p>
@@ -157,21 +193,8 @@ export default function DashboardUtente() {
                                             €{order.products.reduce((acc, product) => acc + (product.price * product.quantity), 0).toFixed(2)}</strong>
                                         </p>
                                     </div>
-                                    <button className={styles.button} onClick={() => handleCommentToggle(order.id)}>
-                                        {order.comments.length ? 'Modifica commento' : 'Aggiungi un commento'}
-                                    </button>
-                                    {showCommentBox[order.id] && (
-                                        <div>
-                                <textarea
-                                    className={styles.textarea}
-                                    value={comment[order.id] || ''}
-                                    onChange={(e) => handleCommentChange(e, order.id)}
-                                    placeholder="Inserisci il tuo commento"
-                                    rows="4"
-                                    cols="50"
-                                />
-                                        </div>
-                                    )}
+
+
                                 </div>
                             ))
                         ) : (
@@ -181,14 +204,52 @@ export default function DashboardUtente() {
                 </div>
             </div>
 
-            <div className={styles.dashboardContainer}>
-                <div className={styles.orderHistory}>
-                    <h2>Storico degli ordini</h2>
-                    <p>Visualizza lo storico dei tuoi ordini</p>
-                    {orderStatus ? (
-                        <p>{orderStatus}</p>
+            <div className={styles.dashboardSection}>
+                <h2>Storico degli ordini</h2>
+                <p>Visualizza lo storico degli ordini potrai aggiungere i commenti agli ordini relativi</p>
+                <div>
+                    {takenOrders.length > 0 ? (
+                        takenOrders.map((order) => (
+                            <div key={order.id} className={styles.orderCard}>
+                                <p>Data creazione: {new Date(order.creation_date).toLocaleString()}</p>
+                                <p>Ritiro
+                                    previsto: {new Date(order.pickup_date).toLocaleString()} alle {order.pickup_time}</p>
+                                <div>
+                                    <p className={styles.h3}>Prodotti:</p>
+                                    {order.products.map((product, index) => (
+                                        <div key={index}>
+                                            <p>{product.product_name} - {product.quantity} x €{product.price}</p>
+                                        </div>
+                                    ))}
+                                    <p><strong>Totale:
+                                        €{order.products.reduce((acc, product) => acc + (product.price * product.quantity), 0).toFixed(2)}</strong>
+                                    </p>
+                                </div>
+
+                                <div key={order.id} className={styles.orderCard}>
+                                    <button className={styles.button} onClick={() => handleCommentToggle(order.id)}>
+                                        {showCommentBox[order.id] ? 'Modifica commento' : 'Aggiungi un commento'}
+                                    </button>
+                                    {showCommentBox[order.id] && (
+                                        <div>
+                                        <textarea
+                                            className={styles.textarea}
+                                            value={comments[order.id] || ''}
+                                            onChange={(e) => handleCommentChange(e, order.id)}
+                                            placeholder="Inserisci il tuo commento"
+                                            rows="4"
+                                            cols="50"
+                                        />
+                                            <button className={styles.buttonSend} onClick={() => handleCommentSubmit(order.id)}>
+                                                Invia commento
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        ))
                     ) : (
-                        <p>Nessuno stato disponibile</p>
+                        <p>Nessun ordine pronto trovato</p>
                     )}
                 </div>
             </div>
