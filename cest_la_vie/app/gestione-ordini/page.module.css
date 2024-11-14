@@ -1,3 +1,19 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    color: #000000;
+}
+
+.title{
+   font-family: 'Raleway';
+   font-size: 30px;
+   font-weight: 400;
+}
+
+.orderCard, .p{
+    font-family: 'Quicksand';
+}
+
 .background {
     margin-top: 20px;
     padding: 0px 20px 20px;
