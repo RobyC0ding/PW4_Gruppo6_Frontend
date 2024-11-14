@@ -1,10 +1,9 @@
 .background {
     margin-top: 20px;
-    padding: 20px;
-    padding-top: 0px;
+    padding: 0px 20px 20px;
     margin-bottom: 40px;
     background-color: #ffffff;
-    font-family: 'Raleway';
+    font-family: 'Raleway', serif;
 }
 .titolo{
     display: flex;
@@ -12,7 +11,7 @@
 }
 
 .mainTitle {
-    font-family: 'Raleway';
+    font-family: 'Raleway', serif;
     font-size: 40px;
     font-weight: 400;
     text-align: center;
@@ -42,7 +41,10 @@
 
 .orderTitle {
     font-size: 1.5rem;
-    color: #333;
+    color: #000000;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    margin-bottom:10px;
 }
 
 .orderItem {
@@ -86,10 +88,27 @@
 }
 
 .noOrdersMessage{
-    font-family: 'Raleway';
+    font-family: 'Raleway', serif;
     color: black;
     font-size: 1.5rem;
     font-weight: 400;
+}
+.p{
+    color: black;
+    padding-top: 10px;
+}
+
+.select{
+    width: 20%;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #d5abc2;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 @media (max-width: 768px) {
@@ -153,5 +172,10 @@
 
     .noOrdersMessage {
         font-size: 1.2rem;
+    }
+
+    .select{
+        width: 100%;
+
     }
 }

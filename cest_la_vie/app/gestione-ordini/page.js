@@ -7,14 +7,15 @@ import HeaderAmministratore from '@/components/headerAmministratore';
 import Footer from "@/components/footer";
 
 export default function OrdiniPage() {
-    const [orders, setOrders] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
+    const [orders, setOrders] = useState([]); // Lista degli ordini
+    const [loading, setLoading] = useState(false); // Stato di caricamento
 
+    // Funzione per recuperare tutti gli ordini
     useEffect(() => {
         const fetchOrders = async () => {
+            setLoading(true);
             try {
-                const searchQueryParam = searchQuery ? `&customerName=${searchQuery}` : "";
-                const response = await fetch(`http://localhost:8080/orders?size=20${searchQueryParam}`, {
+                const response = await fetch("http://localhost:8080/order/all", {
                     method: 'GET',
                     credentials: 'include',
                     headers: {
@@ -24,28 +25,57 @@ export default function OrdiniPage() {
 
                 if (response.ok) {
                     const ordersData = await response.json();
-                    setOrders(ordersData);
+                    console.log(ordersData); // Aggiungi questo per verificare la struttura dei dati
+
+                    // Mappa dei dati dell'API a quelli del componente
+                    const formattedOrders = ordersData.map(order => ({
+                        id: order._id ? order._id.$oid : 'ID non disponibile', // Verifica se _id è disponibile
+                        userId: order.user_id || 'N/A',
+                        products: order.products || [],
+                        pickupDate: order.pickup_date || 'Data non disponibile',
+                        pickupTime: order.pickup_time || 'Ora non disponibile',
+                        creationDate: order.creation_date || 'Data non disponibile',
+                        status: order.status || 'Stato non definito',
+                        comments: order.comments || [],
+                    }));
+
+                    setOrders(formattedOrders); // Imposta gli ordini nello stato
                 } else {
                     throw new Error('Errore nella richiesta degli ordini');
                 }
             } catch (error) {
                 console.error('Errore durante il recupero degli ordini:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
-        fetchOrders();
-    }, [searchQuery]);
+        fetchOrders(); // Chiamata per recuperare gli ordini
+    }, []); // Effettua la chiamata solo al primo render
 
-    const handleOrderStatusChange = (orderId, newStatus) => {
-        setOrders(prevOrders =>
-            prevOrders.map(order => 
-                order.id === orderId ? { ...order, status: newStatus } : order
-            )
-        );
-    };
+    // Funzione per aggiornare lo stato dell'ordine
+    const handleOrderStatusChange = async (id, newStatus) => {
+        try {
+            const response = await fetch(`http://localhost:8080/order/${id}/status?status=${newStatus}`, {
+                method: 'PUT',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+            if (response.ok) {
+                setOrders(prevOrders =>
+                    prevOrders.map(order =>
+                        order.id === id ? { ...order, status: newStatus } : order
+                    )
+                );
+            } else {
+                throw new Error('Errore nell\'aggiornamento dello stato dell\'ordine');
+            }
+        } catch (error) {
+            console.error('Errore durante l\'aggiornamento dello stato dell\'ordine:', error);
+        }
     };
 
     return (
@@ -58,50 +88,44 @@ export default function OrdiniPage() {
             </div>
             <div className={styles.content}>
                 <div className={styles.orderList}>
-                    {orders.length === 0 ? (
+                    {loading ? (
+                        <p>Caricamento ordini...</p>
+                    ) : orders.length === 0 ? (
                         <p className={styles.noOrdersMessage}>Nessun ordine trovato.</p>
                     ) : (
                         orders.map((order, index) => (
                             <div key={index} className={styles.orderCard}>
                                 <h2 className={styles.orderTitle}>Ordine #{order.id}</h2>
-                                <p><strong>Cliente:</strong> {order.customerName}</p>
-                                <p><strong>Prodotti:</strong></p>
-                                <ul>
-                                    {order.items.map((item, idx) => (
-                                        <li key={idx} className={styles.orderItem}>
-                                            {item.name} - Quantità: {item.quantity}
-                                        </li>
-                                    ))}
+                                <p className={styles.p}><strong>Cliente ID:</strong> {order.userId}</p>
+                                <p className={styles.p}><strong>Prodotti:</strong></p>
+                                <ul className={styles.p}>
+                                    {order.products.length > 0 ? (
+                                        order.products.map((product, idx) => (
+                                            <li key={idx} className={styles.orderItem}>
+                                                {product.product_name || 'Nome prodotto non disponibile'} -
+                                                Quantità: {product.quantity || 0} - Prezzo: €{product.price || 0}
+                                            </li>
+                                        ))
+                                    ) : (
+                                        <p className={styles.p}>Prodotti non disponibili</p>
+                                    )}
                                 </ul>
-                                <p><strong>Totale:</strong> €{order.totalPrice}</p>
+                                <p className={styles.p}><strong>Totale:</strong> €{order.products.reduce((total, product) => total + (product.price * product.quantity), 0)}</p>
                                 <div className={styles.orderStatus}>
-                                    <label>Stato:</label>
-                                    <select
-                                        value={order.status}
-                                        onChange={(e) => handleOrderStatusChange(order.id, e.target.value)}
+                                    <label className={styles.p}>Stato: </label>
+                                    <select className={styles.select}
+                                            value={order.status}
+                                            onChange={(e) => handleOrderStatusChange(order.id, e.target.value)}
                                     >
                                         <option value="pending">In attesa</option>
-                                        <option value="in-preparation">In preparazione</option>
-                                        <option value="ready">Pronto per la consegna</option>
-                                        <option value="delivered">Consegnato</option>
+                                        <option value="accept">Accettato</option>
+                                        <option value="ready">Pronto per il ritiro</option>
+
                                     </select>
                                 </div>
                             </div>
                         ))
                     )}
-                </div>
-                <div className={styles.sidebar}>
-                    <h1 className={styles.subTitle}>Cerca Ordini</h1>
-                    <form onSubmit={handleSubmit} className={styles.searchForm}>
-                        <input
-                            type="text"
-                            name="customerName"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className={styles.searchBar}
-                            placeholder="Cerca un ordine per cliente..."
-                        />
-                    </form>
                 </div>
             </div>
             <Footer />
