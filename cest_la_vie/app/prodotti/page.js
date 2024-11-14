@@ -72,16 +72,15 @@ export default function Page() {
                                         <Link href={'/prodotti/' + product.id} key={product.id}>
                                             <div className={styles.productCard}>
                                                 <Image
-                                                    src={`/@/public/images/prodotto${product.index}.jpg`}
-
+                                                    src={`/images/prodotto${product.id}.jpg`}
+                                                    
                                                     alt={product.product_name}
-
                                                     width={300}
                                                     height={300}
                                                     className={styles.image}
                                                     style={{maxWidth: '100%', height: 'auto'}}
                                                 />
-                                                {console.log(`/public/images/prodotto${product.id}.jpg`)}
+                                                {console.log(`/images/prodotto${product.index}.jpg`)}
 
                                                 <div className={styles.productInfo}>
                                                     <p className={styles.info}><strong>{product.product_name}</strong>
