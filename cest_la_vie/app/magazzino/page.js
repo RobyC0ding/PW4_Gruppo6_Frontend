@@ -152,6 +152,7 @@ const AdminProducts = () => {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatedProduct),
+                credentials:'include',
             });
             if (response.ok) {
                 const updatedData = await response.json();
