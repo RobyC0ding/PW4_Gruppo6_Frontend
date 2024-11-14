@@ -1,6 +1,7 @@
-"use client";
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+"use client"
+
+import {useState} from 'react';
+import {useRouter} from 'next/navigation';
 import styles from '@/app/login/page.module.css';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -15,9 +16,9 @@ export default function LoginForm() {
 
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const router = useRouter(); // Per il redirect
+    const router = useRouter();
 
-    const handleChange = ({ target: { name, value } }) => {
+    const handleChange = ({target: {name, value}}) => {
         setFormData(prevData => ({
             ...prevData,
             [name]: value
@@ -66,34 +67,61 @@ export default function LoginForm() {
             const response = await fetch('http://localhost:8080/auth/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: bodyContent,
                 credentials: "include"
             });
 
+            const responseText = await response.text(); // Usa text() per leggere la risposta come stringa
+            console.log('Server response:', responseText);
+
             if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(errorText || 'Errore nella connessione con l’API');
+                throw new Error(responseText || 'Errore nel login');
             }
 
-            router.push('/home-utente');
+            // Verifica del ruolo utente
+            const roleResponse = await fetch('http://localhost:8080/user/role', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: "include"
+            });
+
+            const roleData = await roleResponse.text(); // Usa text() per leggere la risposta come stringa
+            console.log('Role response:', roleData);
+
+            // Verifica del ruolo dell'utente
+            if (roleData.includes('Admin')) {
+                console.log('Redirecting to magazzino...');
+                await router.push('/magazzino');
+            } else if (roleData.includes('Client') || roleData.includes('cliente') || roleData.includes('customer')) {
+                console.log('Redirecting to home-utente...');
+                await router.push('/home-utente');
+            } else {
+                console.log('Response text:', responseText);
+                setError('Tipo utente non riconosciuto');
+            }
 
         } catch (error) {
-            console.error('Errore nel login:', error);
-            setError("Login fallito, riprova.");
+            console.error('Login error:', error);
+            // Gestione degli errori
+            setError('Login fallito, riprova.');
         } finally {
             setLoading(false);
         }
     };
 
+
+
     return (
         <>
-            <Header />
+            <Header/>
             <div className={styles.container}>
                 <div className={styles.formContainerLogin}>
                     <h2 className={styles.formTitle}>Effettua il login<br></br>per ordinare i nostri prodotti</h2>
-                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    {error && <p style={{color: 'red'}}>{error}</p>}
                     <form onSubmit={handleSubmit} className={styles.form}>
                         <div className={styles.formGroup}>
                             <label>Email o Numero di Telefono:</label>
@@ -121,10 +149,10 @@ export default function LoginForm() {
                     </form>
                 </div>
                 <div className={styles.imageContainer}>
-                    <Image src={cake} style={{ width: "500px", height: "600px" }} />
+                    <Image src={cake} style={{width: "500px", height: "600px"}}/>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </>
     );
 }
