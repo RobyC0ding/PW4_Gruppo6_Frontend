@@ -24,7 +24,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 33%;
+    width: 50%;
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -47,15 +47,112 @@
 .dashboardContainer {
     display: flex;
     flex-direction: row;
-    margin-bottom: 80px;
-    justify-content: center;
     align-items: center;
+}
+
+.columnSection {
+    display: flex;
+    flex-direction: row;
+}
+
+.orderHistory h2 {
+    font-size: 20px;
+    color: #000000;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    padding-bottom: 10px;
+
+    margin-right: 20px;
+}
+
+.orderHistory p {
+    font-size: 16px;
+    color: #000000;
+    font-family: 'Quicksand', sans-serif;
+    padding-bottom: 30px;
+}
+
+.orderHistory {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    width: 100%;
+}
+
+.button {
+    width: 15%;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #d5abc2;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #c7c1dc;
+}
+.textarea{
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #d5abc2;
+    resize: none;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    border: none;
+    color: white;
+}
+
+
+/* Media query per tablet (max-width 1024px) */
+@media (max-width: 1024px) {
+    .welcomeUser {
+        padding: 50px;
+        display: flex;
+        flex-direction: column; /* Gli elementi sono allineati verticalmente */
+        align-items: center;
+    }
+
+    .welcomeUser h1 {
+        font-size: 30px;
+    }
+
+    .welcomeUser p {
+        font-size: 14px;
+    }
+
+    .dashboardSection {
+        width: 100%;
+        margin-left: 15px;
+        margin-right: 15px;
+        display: flex;
+        flex-direction: column; /* Allinea gli elementi verticalmente */
+    }
+
+    .dashboardSection h2 {
+        font-size: 20px;
+    }
+
+    .dashboardSection p {
+        font-size: 14px;
+    }
+
+    .dashboardContainer {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }
 
 /* Media query per tablet (max-width 768px) */
 @media (max-width: 768px) {
     .welcomeUser {
         padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .welcomeUser h1 {
@@ -70,6 +167,8 @@
         width: 100%;
         margin-left: 10px;
         margin-right: 10px;
+        display: flex;
+        flex-direction: column;
     }
 
     .dashboardSection h2 {
@@ -86,11 +185,14 @@
     }
 }
 
-/* Media query per smartphone (max-width 480px) */
+
 @media (max-width: 480px) {
     .welcomeUser {
         padding: 20px;
         margin-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .welcomeUser h1 {
@@ -104,6 +206,8 @@
     .dashboardSection {
         width: 100%;
         margin: 0 5px;
+        display: flex;
+        flex-direction: column;
     }
 
     .dashboardSection h2 {
@@ -118,5 +222,8 @@
     .dashboardContainer {
         margin-bottom: 40px;
         padding: 0 10px;
+        flex-direction: column;
+        align-items: stretch;
     }
 }
+
