@@ -1,13 +1,35 @@
 'use client'
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import styles from './headerLoginUtente.module.css';
 import Image from 'next/image';
 import logoImg from '@/public/logo.jpeg';
 
-
 export default function HeaderLoginUtente() {
     const pathname = usePathname();
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        try {
+            // Richiesta di logout al backend
+            const response = await fetch('http://localhost:8080/auth/logout', {
+                method: 'POST',
+                credentials: 'include',  // Include il cookie della sessione
+            });
+
+            if (response.ok) {
+                // Elimina manualmente il cookie dal client
+                document.cookie = 'session=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+
+                // Redirige alla pagina di login
+                router.push('/login');
+            } else {
+                throw new Error('Errore nel logout');
+            }
+        } catch (error) {
+            console.error('Errore nel logout:', error);
+        }
+    };
 
     return (
         <header className={styles.header}>
@@ -33,11 +55,12 @@ export default function HeaderLoginUtente() {
                     </Link>
                 </div>
                 <div className={styles.rightLink}>
-                    <Link href="/" passHref>
-                        <p
-                            className={`${styles.link} ${pathname === '/logout' ? styles.active : ''}`}
-                        >Logout</p>
-                    </Link>
+                    <p
+                        className={styles.link}
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </p>
                 </div>
             </nav>
         </header>
