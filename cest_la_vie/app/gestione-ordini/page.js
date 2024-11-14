@@ -29,7 +29,7 @@ export default function OrdiniPage() {
 
                     // Mappa dei dati dell'API a quelli del componente
                     const formattedOrders = ordersData.map(order => ({
-                        id: order._id ? order._id.$oid : 'ID non disponibile', // Verifica se _id è disponibile
+                        id: order.id,  // Usa 'id' direttamente
                         userId: order.user_id || 'N/A',
                         products: order.products || [],
                         pickupDate: order.pickup_date || 'Data non disponibile',
@@ -71,7 +71,8 @@ export default function OrdiniPage() {
                     )
                 );
             } else {
-                throw new Error('Errore nell\'aggiornamento dello stato dell\'ordine');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Errore nell\'aggiornamento dello stato dell\'ordine');
             }
         } catch (error) {
             console.error('Errore durante l\'aggiornamento dello stato dell\'ordine:', error);
@@ -102,8 +103,7 @@ export default function OrdiniPage() {
                                     {order.products.length > 0 ? (
                                         order.products.map((product, idx) => (
                                             <li key={idx} className={styles.orderItem}>
-                                                {product.product_name || 'Nome prodotto non disponibile'} -
-                                                Quantità: {product.quantity || 0} - Prezzo: €{product.price || 0}
+                                                {product.product_name || 'Nome prodotto non disponibile'} - Quantità: {product.quantity || 0} - Prezzo: €{product.price || 0}
                                             </li>
                                         ))
                                     ) : (
@@ -113,14 +113,15 @@ export default function OrdiniPage() {
                                 <p className={styles.p}><strong>Totale:</strong> €{order.products.reduce((total, product) => total + (product.price * product.quantity), 0)}</p>
                                 <div className={styles.orderStatus}>
                                     <label className={styles.p}>Stato: </label>
-                                    <select className={styles.select}
-                                            value={order.status}
-                                            onChange={(e) => handleOrderStatusChange(order.id, e.target.value)}
+                                    <select
+                                        className={styles.select}
+                                        value={order.status}
+                                        onChange={(e) => handleOrderStatusChange(order.id, e.target.value)}
                                     >
                                         <option value="pending">In attesa</option>
-                                        <option value="accept">Accettato</option>
-                                        <option value="ready">Pronto per il ritiro</option>
-
+                                        <option value="accepted">Accettato</option>
+                                        <option value="refused">Rifiutato</option>
+                                        <option value="taken">Preso</option>
                                     </select>
                                 </div>
                             </div>
