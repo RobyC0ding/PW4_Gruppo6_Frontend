@@ -94,9 +94,15 @@ export default function ProductSlug({ params }) {
             <HeaderLoginUtente />
             <div className={styles.productContainer}>
                 <div className={styles.imageContainer}>
-                    <Image src={`/images/prodotto/${product.product.id}.jpg`} width={400} height={500}
-                        alt="Immagine prodotto" />
+                    <Image
+                        src={`/images/prodotto${product.product.id}.jpg`}
+                        width={550}
+                        height={500}
+                        alt="Immagine prodotto"
+                        unoptimized
+                    />
                 </div>
+                {console.log(`/images/prodotto/${product.product.id}.jpg`)}
 
                 <div className={styles.productDetails}>
                     <p className={styles.category}><strong>Categoria: {product.product.category.name} </strong></p>
