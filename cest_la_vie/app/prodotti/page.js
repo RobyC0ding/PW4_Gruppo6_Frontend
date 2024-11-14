@@ -71,7 +71,7 @@ export default function Page() {
                                         <Link href={'/prodotti/' + product.id} key={product.id}>
                                             <div className={styles.productCard}>
                                                 <Image
-                                                    src={product.image ? product.image : "/images/prodotto2.jpg"} // Percorso immagine o immagine di fallback
+                                                    src={product.image ? product.image : "/images/prodotto2.jpg"}
                                                     alt={product.product_name}
                                                     width={300}
                                                     height={300}

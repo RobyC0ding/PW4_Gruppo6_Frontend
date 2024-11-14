@@ -7,12 +7,12 @@ import Footer from '@/components/footer';
 const AdminProducts = () => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [ingredients, setAllIngredients] = useState([]);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [ingredients, setIngredients] = useState('');
     const [editId, setEditId] = useState(null);
     const [error, setError] = useState('');
     const [image, setImage] = useState(null);
@@ -34,6 +34,7 @@ const AdminProducts = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setCategories(data);
+                    
                 } else {
                     throw new Error('Errore nella richiesta dei prodotti');
                 }
@@ -44,6 +45,32 @@ const AdminProducts = () => {
 
         fetchCatalog();
     }, []);
+
+    useEffect(() => {
+        const fetchIngredients = async () =>{
+            try{
+                const response = await fetch(`http://localhost:8080/ingredients`, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setAllIngredients(data);
+                    
+                } else {
+                    throw new Error('Errore nella richiesta dei prodotti');
+                }
+            } catch (error) {
+                console.error('Errore durante il recupero dei prodotti:', error);
+            }
+        };
+        fetchIngredients();
+    }, []);
+
+    
 
     const filteredCategories = categories.map((category) => ({
         ...category,
@@ -124,7 +151,7 @@ const AdminProducts = () => {
         setQuantity('');
         setDescription('');
         setCategory('');
-        setIngredients('');
+        setAllIngredients('');
         setImage(null);
         setIsImageSelected(false);
         setError('');
@@ -179,13 +206,22 @@ const AdminProducts = () => {
                             placeholder="Descrizione..."
                             className={styles.input}
                         />
-                        <input
-                            type='textarea'
+                        <select
+                            multiple
                             value={ingredients}
-                            onChange={(e) => setIngredients(e.target.value)}
-                            placeholder='Ingredienti...'
-                            className={styles.input}
-                        />
+                            onChange={(e) => {
+                                const selectedIngredients = Array.from(e.target.selectedOptions, option => option.value);
+                                setAllIngredients(selectedIngredients);
+                            }}
+                            className={styles.select}
+                        >
+                            <option value="">Seleziona ingredienti...</option>
+                            {ingredients.map((ingredient) => (
+                                <option key={ingredient.id} value={ingredient.name}>
+                                    {ingredient.name}
+                                </option>
+                            ))}
+                        </select>
                         <div className={styles.quantityWrapper}>
                             <input
                                 type="textarea"
@@ -265,36 +301,36 @@ const AdminProducts = () => {
                             ) : (
                                 filteredCategories.map((category) => (
                                     <div key={category.id}>
-                                        {category.products.map(({product, ingredients}) => (
+                                        {category.products.map(({ product, ingredients }) => (
                                             <li key={product.id} className={styles.productItem}>
-                                            <div className={styles.productInfo}>
-                                                {product.product_name} - {product.price}€ - {product.quantity} pz disponibili
-                                                <br />{ingredients.map(ingredient => ingredient.name).join(",  ")}
-                                            </div>
-                                            <div className={styles.buttons}>
-                                                <button
-                                                    onClick={() => handleDeleteProduct(product.id)}
-                                                    className={styles.deleteButton}
-                                                >
-                                                    Rimuovi
-                                                </button>
-                                                <button
-                                                    onClick={() => {
-                                                        setName(product.name);
-                                                        setPrice(product.price);
-                                                        setQuantity(product.quantity);
-                                                        setDescription(product.description);
-                                                        setCategory(product.category.id);
-                                                        setIngredients(product.ingredients);
-                                                        setEditId(product.id);
-                                                        setImage(product.image || null);
-                                                    }}
-                                                    className={styles.editButton}
-                                                >
-                                                    Modifica
-                                                </button>
-                                            </div>
-                                        </li>
+                                                <div className={styles.productInfo}>
+                                                    {product.product_name} - {product.price}€ - {product.quantity} pz disponibili
+                                                    <br />{ingredients.map(ingredient => ingredient.name).join(",  ")}
+                                                </div>
+                                                <div className={styles.buttons}>
+                                                    <button
+                                                        onClick={() => handleDeleteProduct(product.id)}
+                                                        className={styles.deleteButton}
+                                                    >
+                                                        Rimuovi
+                                                    </button>
+                                                    <button
+                                                        onClick={() => {
+                                                            setName(product.product_name);
+                                                            setPrice(product.price);
+                                                            setQuantity(product.quantity);
+                                                            setDescription(product.description);
+                                                            setCategory(product.category.id);
+                                                            setIngredients(product.ingredients);
+                                                            setEditId(product.id);
+                                                            setImage(product.image || null);
+                                                        }}
+                                                        className={styles.editButton}
+                                                    >
+                                                        Modifica
+                                                    </button>
+                                                </div>
+                                            </li>
                                         ))}
                                     </div>
                                 ))
