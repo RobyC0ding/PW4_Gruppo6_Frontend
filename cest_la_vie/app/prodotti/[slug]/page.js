@@ -96,19 +96,20 @@ export default function ProductSlug({ params }) {
                 <div className={styles.imageContainer}>
                     <Image
                         src={`/images/prodotto${product.product.id}.jpg`}
-                        width={550}
+                        width={600}
                         height={500}
                         alt="Immagine prodotto"
                         unoptimized
+                        className={styles.image}
                     />
                 </div>
-                {console.log(`/images/prodotto/${product.product.id}.jpg`)}
 
                 <div className={styles.productDetails}>
-                    <p className={styles.category}><strong>Categoria: {product.product.category.name} </strong></p>
-                    <h1 className={styles.titleProduct}>{product.product.name}</h1>
+                    <p className={styles.category}><strong>Categoria:  </strong>{product.product.category.name}</p>
+                    <h1 className={styles.titleProduct}>{product.product_name}</h1>
+                    {console.log(product.product.name)}
                     <p className={styles.price}>€ {product.product.price}</p>
-                    <p className={styles.description}>{product.product.description}</p>
+                    <p className={styles.description}><strong>Descrizione:<br /></strong>{product.product.description}</p>
                     <p className={styles.ingredients}>
                         <strong>Ingredienti:<br /></strong>
                         {product.ingredients.map((ingredient, i) => (

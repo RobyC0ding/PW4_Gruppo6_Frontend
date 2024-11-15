@@ -55,12 +55,14 @@ export default function HeaderLoginUtente() {
                     </Link>
                 </div>
                 <div className={styles.rightLink}>
+                    <Link href={'/'}>
                     <p
                         className={styles.link}
                         onClick={handleLogout}
-                    >
+                        >
                         Logout
                     </p>
+                        </Link>
                     <Link href='/carrello' passHref>
                         <img width="25" height="25" src="https://img.icons8.com/pastel-glyph/100/shopping-cart--v1.png" alt="shopping-cart" />
                     </Link>

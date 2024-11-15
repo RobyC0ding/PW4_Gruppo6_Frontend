@@ -3,7 +3,7 @@
 import styles from '@/app/dashboard-utente/page.module.css';
 import HeaderLoginUtente from "@/components/headerLoginUtente";
 import Footer from "@/components/footer";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 export default function DashboardUtente() {
     const [orders, setOrders] = useState([]); // Ordini generali
@@ -103,15 +103,17 @@ export default function DashboardUtente() {
     const takenOrders = orders.filter(order => order.status === 'taken');
 
     return (
-        <>
-            <HeaderLoginUtente/>
-            <div className={styles.welcomeUser}>
-                <h1>Benvenuto nella tua dashboard</h1>
+        <body>
+            <HeaderLoginUtente />
+            <div className={styles.background}>
+                <div>
+                    <h1 className={styles.mainTitle}>Benvenuto nella tua dashboard</h1>
+                </div>
             </div>
             <div className={styles.dashboardContainer}>
-                <div className={styles.dashboardSection}>
-                    <h2>Ordini in attesa</h2>
-                    <p>Visualizza gli ordini in attesa di risposta</p>
+                <div className={styles.dashboardSection1}>
+                    <h2 className={styles.h2}>Ordini in attesa</h2>
+                    <p className={styles.ps1}>Visualizza gli ordini in attesa di risposta</p>
                     <div>
                         {pendingOrders.length > 0 ? (
                             pendingOrders.map((order) => (
@@ -141,9 +143,9 @@ export default function DashboardUtente() {
             </div>
 
             <div className={styles.columnSection}>
-                <div className={styles.dashboardSection}>
+                <div className={styles.dashboardSection2}>
                     <h2>Ordini accettati</h2>
-                    <p>Visualizza gli ordini accettati</p>
+                    <p className={styles.ps2}>Visualizza gli ordini accettati</p>
                     <div>
                         {acceptedOrders.length > 0 ? (
                             acceptedOrders.map((order) => (
@@ -172,9 +174,9 @@ export default function DashboardUtente() {
                 </div>
 
 
-                <div className={styles.dashboardSection}>
+                <div className={styles.dashboardSection3}>
                     <h2>Ordini rifiutati</h2>
-                    <p>Visualizza i tuoi ordini rifiutati</p>
+                    <p className={styles.ps3}>Visualizza i tuoi ordini rifiutati</p>
                     <div>
                         {refusedOrders.length > 0 ? (
                             refusedOrders.map((order) => (
@@ -203,59 +205,58 @@ export default function DashboardUtente() {
                     </div>
                 </div>
             </div>
-
-            <div className={styles.dashboardSection}>
-                <h2>Storico degli ordini</h2>
-                <p>Visualizza lo storico degli ordini potrai aggiungere i commenti agli ordini relativi</p>
-                <div>
-                    {takenOrders.length > 0 ? (
-                        takenOrders.map((order) => (
-                            <div key={order.id} className={styles.orderCard}>
-                                <p>Data creazione: {new Date(order.creation_date).toLocaleString()}</p>
-                                <p>Ritiro
-                                    previsto: {new Date(order.pickup_date).toLocaleString()} alle {order.pickup_time}</p>
-                                <div>
-                                    <p className={styles.h3}>Prodotti:</p>
-                                    {order.products.map((product, index) => (
-                                        <div key={index}>
-                                            <p>{product.product_name} - {product.quantity} x €{product.price}</p>
-                                        </div>
-                                    ))}
-                                    <p className={styles.h3}><strong>Totale:
-                                        €{order.products.reduce((acc, product) => acc + (product.price * product.quantity), 0).toFixed(2)}</strong>
-                                    </p>
-                                </div>
-
+            <div className={styles.storico}>
+                <div className={styles.dashboardSection4}>
+                    <h2>Storico degli ordini</h2>
+                    <p className={styles.ps4}>Visualizza lo storico degli ordini potrai aggiungere i commenti agli ordini relativi</p>
+                    <div>
+                        {takenOrders.length > 0 ? (
+                            takenOrders.map((order) => (
                                 <div key={order.id} className={styles.orderCard}>
-                                    <button className={styles.button} onClick={() => handleCommentToggle(order.id)}>
-                                        {showCommentBox[order.id] ? 'Modifica commento' : 'Aggiungi un commento'}
-                                    </button>
-                                    {showCommentBox[order.id] && (
-                                        <div>
-                                        <textarea
-                                            className={styles.textarea}
-                                            value={comments[order.id] || ''}
-                                            onChange={(e) => handleCommentChange(e, order.id)}
-                                            placeholder="Inserisci il tuo commento"
-                                            rows="4"
-                                            cols="50"
-                                        />
-                                            <button className={styles.buttonSend} onClick={() => handleCommentSubmit(order.id)}>
-                                                Invia commento
-                                            </button>
-                                        </div>
-                                    )}
+                                    <p>Data creazione: {new Date(order.creation_date).toLocaleString()}</p>
+                                    <p>Ritiro
+                                        previsto: {new Date(order.pickup_date).toLocaleString()} alle {order.pickup_time}</p>
+                                    <div>
+                                        <p className={styles.h3}>Prodotti:</p>
+                                        {order.products.map((product, index) => (
+                                            <div key={index}>
+                                                <p>{product.product_name} - {product.quantity} x €{product.price}</p>
+                                            </div>
+                                        ))}
+                                        <p className={styles.h3}><strong>Totale:
+                                            €{order.products.reduce((acc, product) => acc + (product.price * product.quantity), 0).toFixed(2)}</strong>
+                                        </p>
+                                    </div>
+
+                                    <div key={order.id} className={styles.orderCard}>
+                                        <button className={styles.button} onClick={() => handleCommentToggle(order.id)}>
+                                            {showCommentBox[order.id] ? 'Modifica commento' : 'Aggiungi un commento'}
+                                        </button>
+                                        {showCommentBox[order.id] && (
+                                            <div className={styles.comment}>
+                                                <textarea
+                                                    className={styles.textarea}
+                                                    value={comments[order.id] || ''}
+                                                    onChange={(e) => handleCommentChange(e, order.id)}
+                                                    placeholder="Inserisci il tuo commento"
+                                                    rows="4"
+                                                    cols="50"
+                                                />
+                                                <button className={styles.buttonSend} onClick={() => handleCommentSubmit(order.id)}>
+                                                    Invia commento
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Nessun ordine pronto trovato</p>
-                    )}
+                            ))
+                        ) : (
+                            <p>Nessun ordine pronto trovato</p>
+                        )}
+                    </div>
                 </div>
             </div>
-
-
-            <Footer/>
-        </>
+            <Footer />
+        </body>
     );
 }

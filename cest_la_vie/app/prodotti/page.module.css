@@ -70,6 +70,14 @@
 
 }
 
+.image{
+    border-radius: 8px;
+    overflow: hidden;
+    width: 300px;
+    height: 210px;
+    
+}
+
 .productCard:hover {
     transform: scale(1.05);
 }
@@ -128,9 +136,6 @@
     font-weight: 400;
 }
 
-.image{
-    border-radius: 8px;
-}
 
 /* Stile per schermi con larghezza massima di 768px (es. tablet) */
 @media (max-width: 768px) {
