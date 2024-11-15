@@ -38,15 +38,26 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!validateEmail(formData.email)) {
-            console.error("Email non valida");
+        // Verifica che almeno uno tra email e numero di telefono sia presente
+        if (!formData.email && !formData.phoneNumber) {
+            console.error("Devi inserire almeno una delle due informazioni: email o numero di telefono");
             return;
         }
 
-        if (!validatePhoneNumber(formData.phoneNumber)) {
-            console.error("Numero di telefono non valido");
-            return;
+        if(formData.email){
+            if (!validateEmail(formData.email)) {
+                console.error("Email non valida");
+                return;
+            }
         }
+        
+        if(formData.phoneNumber){
+            if (!validatePhoneNumber(formData.phoneNumber)) {
+                console.error("Numero di telefono non valido");
+                return;
+            }
+        }
+        
 
         try {
             const response = await fetch("http://localhost:8080/auth/register", {
@@ -114,8 +125,6 @@ export default function Register() {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            required
-
                         />
                     </div>
 
@@ -127,7 +136,6 @@ export default function Register() {
                             name="phoneNumber"
                             value={formData.phoneNumber}
                             onChange={handleChange}
-                            required
                         />
                     </div>
 
