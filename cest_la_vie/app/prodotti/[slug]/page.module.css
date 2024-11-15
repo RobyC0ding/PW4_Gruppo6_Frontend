@@ -147,7 +147,6 @@
 
 .addToCartButton {
     display: inline-block;
-    margin: 10px 0;
     background-color: rgb(213 171 194);
     color: white;
     font-size: 16px;
@@ -158,6 +157,7 @@
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 20px;
 }
 
 .addToCartButton:hover {
