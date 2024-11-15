@@ -1,0 +1,268 @@
+.productContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 80px;
+    margin-top: 80px;
+
+}
+
+
+.imageContainer {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin-left: -200px;
+    
+}
+
+.image{
+    border-radius: 8px;
+}
+
+
+
+
+.productDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 30px;
+   
+
+
+}
+
+.titleProduct {
+    color: black;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    padding-bottom: 20px;
+}
+
+.price {
+    color: black;
+    font-size: 1.5rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.description {
+    color: black;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.quantityWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #d5abc2;
+    outline: none;
+    padding: 10px;
+    background-color: #f8f8f8;
+    color: black;
+}
+
+.stylebutton {
+    display: flex;
+    gap: 10px;
+    padding-top: 17px;
+    padding-left: 5px;
+}
+
+.quantityButton {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.plus {
+    width: 20px;
+    height: 20px;
+}
+
+.minus {
+    width: 20px;
+    height: 20px;
+}
+
+.ingredients {
+    color: black;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.category {
+    color: black;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+
+.quantity {
+    color: black;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+}
+
+.quantity input {
+    display: inline-block;
+    margin: 10px 0;
+    background-color: rgb(213 171 194);
+    color: white;
+    font-size: 16px;
+    width: 70px;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.addToCartButton {
+    display: inline-block;
+    margin: 10px 0;
+    background-color: rgb(213 171 194);
+    color: white;
+    font-size: 16px;
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.addToCartButton:hover {
+    background-color: #c7c1dc;
+}
+
+.loading {
+    font-size: 1.5rem;
+    color: black;
+    font-family: 'Quicksand', sans-serif;
+    margin: 20px;
+}
+
+.error {
+    color: red;
+    margin: 20px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.orderStatus {
+    margin-top: 10px;
+    font-weight: 400;
+    color: black;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* Media query per tablet (max-width: 768px) */
+@media (max-width: 768px) {
+    .productContainer {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: 40px 0; /* Ridotto per adattarsi meglio */
+    }
+
+    .productDetails {
+        width: 100%;
+        padding: 0 10px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .imageContainer {
+        height: 300px;
+        margin: 0 auto;
+        margin-bottom: 20px; /* Spazio tra immagine e dettagli prodotto */
+    }
+
+    .image{
+        height: 300px;
+    }
+
+    .productDetails {
+        align-items: center;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .addToCartButton {
+        width: 80%;
+        margin: 20px auto;
+    }
+}
+
+/* Media query per mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    .productContainer {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: 30px 0;
+    }
+
+    .imageContainer {
+        width: 100%;
+        height: 300px;
+        margin: 0 auto;
+        margin-bottom: 15px;
+        
+    }
+
+    .image{
+        width: 80%;
+        height: 290px;
+    }
+
+    .productDetails {
+        width: 100%;
+        padding: 0 10px;
+        align-items: center;
+    }
+
+    .titleProduct, .price, .description, .ingredients, .category, .quantity {
+        text-align: center;
+    }
+
+    .quantity input, .addToCartButton {
+        width: 100%;
+        height: 45px;
+        border-radius: 20px;
+    }
+
+    .addToCartButton {
+        margin: 15px auto;
+        font-size: 14px;
+    }
+}

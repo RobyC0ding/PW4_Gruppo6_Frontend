@@ -1,0 +1,81 @@
+.background{
+    background-image: url('/macarons.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    width: 100%;
+    min-height: 300px;
+}
+
+.maxContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container{
+    color: black;
+    height: 300px;
+    background-color: rgba(255, 255, 255, 0.52) !important;
+}
+
+.description{
+    
+    text-align: center;
+
+}
+
+
+.informationTitle, .info, .description p {
+    position: relative;
+    z-index: 1; /* Porta il testo in primo piano sopra lo sfondo sfocato */
+}
+
+.informationTitle {
+    padding-bottom: 20px;
+    font-size: 30px;
+    font-weight: 400;
+    font-family: 'Raleway';
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 700px;
+    height: 300px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+@media (max-width: 480px) {
+
+    .background{
+        min-height: 270px;
+        background-attachment: scroll;
+    }
+
+    .container{
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .informationTitle{
+        font-size: 30px;
+    }
+
+    .info{
+        font-size: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .informationContainer::before {
+        background-attachment: scroll;
+    }
+}

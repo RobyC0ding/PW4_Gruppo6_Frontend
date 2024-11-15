@@ -1,0 +1,197 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    color: #000000;
+}
+
+.title{
+   font-family: 'Raleway';
+   font-size: 30px;
+   font-weight: 400;
+}
+
+.orderCard, .p{
+    font-family: 'Quicksand';
+}
+
+.background {
+    margin-top: 20px;
+    padding: 0px 20px 20px;
+    margin-bottom: 40px;
+    background-color: #ffffff;
+    font-family: 'Raleway', serif;
+}
+.titolo{
+    display: flex;
+    justify-content: center;
+}
+
+.mainTitle {
+    font-family: 'Raleway', serif;
+    font-size: 40px;
+    font-weight: 400;
+    text-align: center;
+    color: #333;
+}
+
+.content {
+    display: flex;
+    gap: 1rem;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.orderList {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.orderCard {
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.orderTitle {
+    font-size: 1.5rem;
+    color: #000000;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    margin-bottom:10px;
+}
+
+.orderItem {
+    margin-left: 1rem;
+}
+
+.orderStatus select {
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+.sidebar {
+    flex: 1;
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subTitle {
+    font-family: 'Quicksand';
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.searchBar {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: white;
+}
+
+.noOrdersMessage{
+    font-family: 'Raleway', serif;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+.p{
+    color: black;
+    padding-top: 10px;
+}
+
+.select{
+    width: 20%;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #d5abc2;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+@media (max-width: 768px) {
+    .mainTitle {
+        font-size: 32px;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .orderTitle {
+        font-size: 1.2rem;
+    }
+
+    .orderStatus select {
+        font-size: 0.9rem;
+    }
+
+    .sidebar {
+        margin-top: 20px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .mainTitle {
+        font-size: 28px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 10px;
+        padding-top: 0px;
+    }
+
+    .background{
+        margin-bottom: 0px;
+    }
+
+    .orderList,
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .orderTitle {
+        font-size: 1rem;
+    }
+
+    .orderStatus select {
+        font-size: 0.8rem;
+        padding: 4px;
+    }
+
+    .searchBar {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .noOrdersMessage {
+        font-size: 1.2rem;
+    }
+
+    .select{
+        width: 100%;
+
+    }
+}
