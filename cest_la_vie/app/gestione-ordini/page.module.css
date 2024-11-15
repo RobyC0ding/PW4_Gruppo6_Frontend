@@ -4,11 +4,29 @@
     color: #000000;
 }
 
-.title{
-   font-family: 'Raleway';
-   font-size: 30px;
-   font-weight: 400;
+.section .title{
+    font-family: 'Raleway';
+    font-size: 20px;
+    font-weight: 500;
+
 }
+.section{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.orderCard .p{
+    font-family: 'Quicksand';
+    font-size: 16px;
+}
+
+.orderCard{
+    border: 1px solid rgba(243, 188, 159, 1);
+    border-radius: 8px;
+}
+
 
 .orderCard, .p{
     font-family: 'Quicksand';
@@ -34,6 +52,11 @@
     color: #333;
 }
 
+.container{
+    display: flex;
+    
+}
+
 .content {
     display: flex;
     gap: 1rem;
@@ -49,6 +72,8 @@
 }
 
 .orderCard {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
     padding: 20px;
     background: #ffffff;
     border-radius: 8px;

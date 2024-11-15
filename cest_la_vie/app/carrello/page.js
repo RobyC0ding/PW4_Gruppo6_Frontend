@@ -88,12 +88,11 @@ const Carrello = () => {
             });
 
             if (response.ok) {
-                console.log("molto bene");
                 alert("Ordine effettuato con successo!");
                 localStorage.removeItem("cart");
                 setProdotti([]);
             } else {
-                console.log("male");
+                localStorage.removeItem("cart");
                 console.error(`Errore nell'invio dell'ordine: ${response.status}`);
             }
         } catch (error) {

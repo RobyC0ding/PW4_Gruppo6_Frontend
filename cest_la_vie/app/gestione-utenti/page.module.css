@@ -10,6 +10,36 @@
     font-weight: 400;
 }
 
-.list h3 .p{
-    font-family: 'Quicksand', sans-serif;
+
+.list{
+    margin: 10px;
+    margin-left: 0px;
+    padding: 15px;
+    border: 1px solid rgba(243, 188, 159, 1);
+    border-radius: 8px;
+}
+
+.list .phoneNumber{
+    font-family: 'Quicksand';
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.button {
+    display: inline-block;
+    margin: 10px 0;
+    background-color: rgb(213 171 194);
+    color: white;
+    font-size: 16px;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #c7c1dc;
 }

@@ -125,7 +125,8 @@ export default function DashboardUtente() {
                                         <p className={styles.h3}>Prodotti:</p>
                                         {order.products.map((product, index) => (
                                             <div key={index}>
-                                                <p>{product.product_name} - {product.quantity} x €{product.price}</p>
+                                                {console.log(product)}
+                                                <p>{product.name} - {product.quantity} x €{product.price}</p>
                                             </div>
                                         ))}
                                         <p><strong>Totale:

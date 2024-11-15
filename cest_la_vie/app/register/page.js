@@ -5,8 +5,10 @@ import styles from "@/app/register/page.module.css";
 import Footer from "@/components/footer";
 import pasticceria from "@/public/pasticceria.jpg";
 import Image from "next/image";
+import { useRouter } from "next/navigation"; 
 
 export default function Register() {
+    const router = useRouter();
 
     const [formData, setFormData] = useState({
         name: '',
@@ -70,8 +72,8 @@ export default function Register() {
             console.log(response);
 
             if (response.ok) {
-
                 console.log("Registrazione avvenuta con successo");
+                router.push('/login');
             } else {
 
                 console.error("Errore durante la registrazione");

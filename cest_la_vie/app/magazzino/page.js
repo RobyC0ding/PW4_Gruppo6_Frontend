@@ -322,12 +322,7 @@ const AdminProducts = () => {
                                                     <br />{ingredients.map(ingredient => ingredient.name).join(",  ")}
                                                 </div>
                                                 <div className={styles.buttons}>
-                                                    <button
-                                                        onClick={() => handleDeleteProduct(product.id)}
-                                                        className={styles.deleteButton}
-                                                    >
-                                                        Rimuovi
-                                                    </button>
+
                                                     <button
                                                         onClick={() => {
                                                             setEditId(product.id);
