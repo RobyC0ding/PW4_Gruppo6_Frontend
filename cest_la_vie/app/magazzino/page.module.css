@@ -32,6 +32,9 @@
 }
 
 .productContainer {
+    font-family: 'Quicksand';
+    font-size: 16px;
+    font-weight: 400;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;

@@ -62,9 +62,9 @@ const Utente = () => {
                 <ul>
                     {utenti.map((user) => (
                         <ul key={user.phoneNumber} className={styles.list}>
-                            <p>Numero di telefono: {user.phoneNumber}</p>
-                            <p>Stato di verifica: {user.verified ? "Verificato" : "Non verificato"}</p>
-                            <button onClick={() => handleVerify(user.phoneNumber)}>Verifica</button>
+                            <p>Numero di telefono: {user.phoneNumber}</p><br />
+                            <p>Stato di verifica: {user.verified ? "Verificato" : "Non verificato"}</p><br />
+                            <button className={styles.button} onClick={() => handleVerify(user.phoneNumber)}>Verifica</button>
                         </ul>
                     ))}
                 </ul>

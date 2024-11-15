@@ -84,16 +84,14 @@ export default function OrdiniPage() {
             <HeaderAmministratore />
 
             <main className={styles.main}>
-                <div>
+                <div className={styles.contanier}>
                     <section className={styles.section}>
                         <h2 className={styles.title}>Ordini Pendenti</h2>
                         {pendingOrders.length > 0 ? (
                             pendingOrders.map(order => (
                                 <div key={order.id} className={styles.orderCard}>
-                                    <p>ID: {order.id}</p>
-                                    <p>Utente: {order.userId}</p>
-                                    <p>Data di Ritiro: {order.pickupDate}</p>
-                                    <p>Ora di Ritiro: {order.pickupTime}</p>
+                                    <p><strong>ID: </strong>{order.id}</p>
+                                    <p><strong>Data di ritiro</strong>{order.pickupDate.split("T")[0]}</p>
                                     <div className={styles.orderStatus}>
                                         <label className={styles.p}>Stato: </label>
                                         <select
@@ -107,6 +105,8 @@ export default function OrdiniPage() {
                                             <option value="taken">Preso</option>
                                         </select>
                                     </div>
+                                    <p><strong>Utente: </strong>{order.userId}</p>
+                                    <p><strong>Ora di ritiro</strong>{order.pickupTime}</p>
                                 </div>
                             ))
                         ) : (
@@ -119,23 +119,23 @@ export default function OrdiniPage() {
                         {accRefOrders.length > 0 ? (
                             accRefOrders.map(order => (
                                 <div key={order.id} className={styles.orderCard}>
-                                    <p>ID: {order.id}</p>
-                                    <p>Utente: {order.userId}</p>
-                                    <p>Data di Ritiro: {order.pickupDate}</p>
-                                    <p>Ora di Ritiro: {order.pickupTime}</p>
+                                    <p><strong>ID: </strong>{order.id}</p>
+                                    <p><strong>Data di ritiro</strong>{order.pickupDate.split("T")[0]}</p>
                                     <div className={styles.orderStatus}>
                                         <label className={styles.p}>Stato: </label>
                                         <select
                                             className={styles.select}
                                             value={order.status}
                                             onChange={(e) => handleOrderStatusChange(order.id, e.target.value)}
-                                        >
+                                            >
                                             <option value="pending">In attesa</option>
                                             <option value="accepted">Accettato</option>
                                             <option value="refused">Rifiutato</option>
                                             <option value="taken">Preso</option>
                                         </select>
                                     </div>
+                                    <p><strong>Utente: </strong>{order.userId}</p>
+                                    <p><strong>Ora di ritiro</strong>{order.pickupTime}</p>
                                 </div>
                             ))
                         ) : (
@@ -144,15 +144,28 @@ export default function OrdiniPage() {
                     </section>
 
                     <section className={styles.section}>
-                        <h2>Ordini di Oggi</h2>
+                        <h2 className={styles.title}>Ordini di Oggi</h2>
                         {todayOrders.length > 0 ? (
                             todayOrders.map(order => (
                                 <div key={order.id} className={styles.orderCard}>
-                                    <p>ID: {order.id}</p>
-                                    <p>Utente: {order.userId}</p>
-                                    <p>Data di Ritiro: {order.pickupDate}</p>
-                                    <p>Ora di Ritiro: {order.pickupTime}</p>
-                                    <p>Stato: {order.status}</p>
+                                    <p><strong>ID: </strong>{order.id}</p>
+                                    <p><strong>Data di ritiro</strong>{order.pickupDate.split("T")[0]}</p>
+                                    <div className={styles.orderStatus}>
+                                        <label className={styles.p}>Stato: </label>
+                                        <select
+                                            className={styles.select}
+                                            value={order.status}
+                                            onChange={(e) => handleOrderStatusChange(order.id, e.target.value)}
+                                            >
+                                            <option value="pending">In attesa</option>
+                                            <option value="accepted">Accettato</option>
+                                            <option value="refused">Rifiutato</option>
+                                            <option value="taken">Preso</option>
+                                        </select>
+                                    </div>
+                                    <p><strong>Utente: </strong>{order.userId}</p>
+                                    <p><strong>Ora di ritiro</strong>{order.pickupTime}</p>
+                                        
                                 </div>
                             ))
                         ) : (
