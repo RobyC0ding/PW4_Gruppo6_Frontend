@@ -16,7 +16,9 @@ const Carrello = () => {
     useEffect(() => {
         const fetchUser= async () => {
             try {
-                const response = await fetch("http://localhost:8080/user/fromSession");
+                const response = await fetch("http://localhost:8080/user/fromSession",{
+                    credentials:'include',
+                });
                 const data = await response.json();
                 setUtente(data)
             } catch (error) {
@@ -82,6 +84,7 @@ const Carrello = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(orderData),
+                credentials:'include',
             });
 
             if (response.ok) {
